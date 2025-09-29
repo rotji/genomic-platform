@@ -1,53 +1,112 @@
-# React + TypeScript + Vite
+# 🧬 Genomic Platform Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A Web3-native genomic analysis platform that democratizes DNA/RNA analysis for hospitals, researchers, and communities worldwide.
 
-Currently, two official plugins are available:
+## 🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Classical Genomic Analysis**: Mutation detection, sequence alignment, drug resistance screening
+- **Web3 Integration**: Built on Stacks blockchain with Clarity smart contracts
+- **Multi-Domain Support**: Healthcare, research, education, agriculture, forensics
+- **Secure & Private**: End-to-end encryption with blockchain-verified data provenance
+- **User-Friendly**: No bioinformatics expertise required
 
-## React Compiler
+## 🛠️ Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Frontend**: React 19 + TypeScript + Vite
+- **Blockchain**: Stacks blockchain + Clarity smart contracts
+- **Styling**: CSS Modules + Responsive design
+- **Routing**: React Router v6
+- **State Management**: React hooks + Context API
+- **File Handling**: React Dropzone for DNA/RNA uploads
 
-## Expanding the ESLint configuration
+## 📁 Project Structure
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+src/
+├── components/          # Reusable UI components
+├── pages/              # Page components (Home, Upload, Results, etc.)
+├── styles/             # CSS modules and global styles
+├── utils/              # Utility functions and API clients
+├── hooks/              # Custom React hooks
+├── types/              # TypeScript type definitions
+└── assets/             # Static assets
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🏗️ Development
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
+### Prerequisites
+
+- Node.js 18+ 
+- npm or yarn
+- Git
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/rotji/genomic-platform-frontend.git
+cd genomic-platform-frontend
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+```
+
+### Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run lint` - Run ESLint
+- `npm run format` - Format code with Prettier
+- `npm run type-check` - Run TypeScript type checking
+
+## 🎯 Roadmap
+
+### Phase 1: Foundation (Items 1-15)
+- [x] Basic project setup and structure
+- [x] Core UI components and routing
+- [ ] File upload functionality
+- [ ] Basic genomic analysis
+
+### Phase 2: Core Features (Items 16-35)
+- [ ] Stacks.js Web3 integration
+- [ ] Smart contract interactions
+- [ ] Classical genomic analysis pipeline
+- [ ] User dashboard and authentication
+
+### Phase 3: Advanced Features (Items 36-55)
+- [ ] NFT integration for genomic data
+- [ ] Multi-domain modules (healthcare, research, etc.)
+- [ ] Global surveillance and analytics
+- [ ] Enterprise features and scaling
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🔗 Links
+
+- [Documentation](./docs/) - Comprehensive project documentation
+- [Todo List](./docs/to%20do%20lists.md) - Complete build roadmap
+- [Stacks Documentation](https://docs.stacks.co/) - Stacks blockchain docs
+
+## 📞 Support
+
+For questions and support, please open an issue or contact the development team.
+
+---
+
+**Building the future of genomic analysis on Web3** 🧬⛓️
 import reactDom from 'eslint-plugin-react-dom'
 
 export default defineConfig([
