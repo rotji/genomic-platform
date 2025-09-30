@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Dna } from 'lucide-react';
+import { Menu, X, Dna, User, LogOut } from 'lucide-react';
+import { useAuth } from '../hooks/useAuth';
+import toast from 'react-hot-toast';
 import styles from './Navbar.module.css';
 
 const Navbar: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const { user, isAuthenticated, signOut } = useAuth();
 
   const navItems = [
     { path: '/', label: 'Home' },
@@ -20,6 +23,11 @@ const Navbar: React.FC = () => {
 
   const isActive = (path: string) => {
     return location.pathname === path;
+  };
+
+  const handleSignOut = () => {
+    signOut();
+    toast.success('Signed out successfully');
   };
 
   return (
@@ -44,6 +52,34 @@ const Navbar: React.FC = () => {
               {item.label}
             </Link>
           ))}
+        </div>
+
+        {/* Auth Section */}
+        <div className={styles.authSection}>
+          {isAuthenticated ? (
+            <div className={styles.userMenu}>
+              <div className={styles.userInfo}>
+                <User size={16} />
+                <span>{user?.name || user?.email}</span>
+              </div>
+              <button
+                onClick={handleSignOut}
+                className={styles.signOutButton}
+                title="Sign Out"
+              >
+                <LogOut size={16} />
+              </button>
+            </div>
+          ) : (
+            <div className={styles.authButtons}>
+              <Link to="/signin" className={styles.signInButton}>
+                Sign In
+              </Link>
+              <Link to="/signup" className={styles.signUpButton}>
+                Sign Up
+              </Link>
+            </div>
+          )}
         </div>
 
         {/* Mobile Menu Button */}
@@ -71,6 +107,45 @@ const Navbar: React.FC = () => {
               {item.label}
             </Link>
           ))}
+          
+          {/* Mobile Auth Section */}
+          <div className={styles.mobileAuthSection}>
+            {isAuthenticated ? (
+              <>
+                <div className={styles.mobileUserInfo}>
+                  <User size={16} />
+                  <span>{user?.name || user?.email}</span>
+                </div>
+                <button
+                  onClick={() => {
+                    handleSignOut();
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className={styles.mobileSignOutButton}
+                >
+                  <LogOut size={16} />
+                  Sign Out
+                </button>
+              </>
+            ) : (
+              <>
+                <Link
+                  to="/signin"
+                  className={styles.mobileSignInButton}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Sign In
+                </Link>
+                <Link
+                  to="/signup"
+                  className={styles.mobileSignUpButton}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Sign Up
+                </Link>
+              </>
+            )}
+          </div>
         </div>
       )}
     </nav>

@@ -15,6 +15,7 @@
   justify-content: space-between;
   align-items: center;
   height: 4rem;
+  gap: 1rem;
 }
 
 .logo {
@@ -47,6 +48,8 @@
   display: flex;
   gap: 2rem;
   align-items: center;
+  flex: 1;
+  justify-content: center;
 }
 
 .navLink {
@@ -134,4 +137,149 @@
   .logoText {
     font-size: 1.125rem;
   }
+
+  .authSection {
+    display: none;
+  }
+}
+
+/* Auth Section Styles */
+.authSection {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.userMenu {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #374151;
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+.signOutButton {
+  background: none;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+}
+
+.signOutButton:hover {
+  color: #dc2626;
+  background-color: #fee2e2;
+}
+
+.authButtons {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.signInButton {
+  text-decoration: none;
+  color: #374151;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  transition: all 0.2s ease;
+}
+
+.signInButton:hover {
+  color: #3b82f6;
+  background-color: #eff6ff;
+}
+
+.signUpButton {
+  text-decoration: none;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  transition: all 0.2s ease;
+}
+
+.signUpButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+/* Mobile Auth Styles */
+.mobileAuthSection {
+  border-top: 1px solid #e5e7eb;
+  padding-top: 1rem;
+  margin-top: 1rem;
+}
+
+.mobileUserInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #374151;
+  font-weight: 500;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.mobileSignOutButton {
+  width: 100%;
+  background: none;
+  border: none;
+  color: #dc2626;
+  cursor: pointer;
+  padding: 0.75rem 1rem;
+  border-radius: 0.375rem;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  text-align: left;
+}
+
+.mobileSignOutButton:hover {
+  background-color: #fee2e2;
+}
+
+.mobileSignInButton,
+.mobileSignUpButton {
+  display: block;
+  text-decoration: none;
+  padding: 0.75rem 1rem;
+  border-radius: 0.375rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.mobileSignInButton {
+  color: #374151;
+  border: 1px solid #d1d5db;
+}
+
+.mobileSignInButton:hover {
+  background-color: #f9fafb;
+}
+
+.mobileSignUpButton {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.mobileSignUpButton:hover {
+  opacity: 0.9;
 }
