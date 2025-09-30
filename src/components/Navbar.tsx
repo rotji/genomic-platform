@@ -16,6 +16,7 @@ const Navbar: React.FC = () => {
     { path: '/upload', label: 'Upload DNA/RNA', requireAuth: true },
     { path: '/results', label: 'Results', requireAuth: true },
     { path: '/docs', label: 'Documentation' },
+    { path: '/faq', label: 'FAQ' },
   ];
 
   // Add admin route for admin users

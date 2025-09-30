@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import Upload from './pages/Upload';
 import Results from './pages/Results';
 import Docs from './pages/Docs';
+import FAQ from './pages/FAQ';
 import Dashboard from './pages/Dashboard';
 import AdminDashboard from './pages/AdminDashboard';
 import SignUp from './components/SignUp';
@@ -26,6 +27,7 @@ function App() {
             <Route path="upload" element={<Upload />} />
             <Route path="results" element={<Results />} />
             <Route path="docs" element={<Docs />} />
+            <Route path="faq" element={<FAQ />} />
           </Route>
         </Routes>
         <Toaster 
