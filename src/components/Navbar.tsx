@@ -19,10 +19,10 @@ const Navbar: React.FC = () => {
     { path: '/faq', label: 'FAQ' },
   ];
 
-  // Add admin route for admin users
-  const adminNavItems = user?.role === 'admin' ? [
+  // Add admin route for all users (for testing)
+  const adminNavItems = [
     { path: '/admin', label: 'Admin', requireAuth: true, adminOnly: true }
-  ] : [];
+  ];
 
   const allNavItems = [...navItems, ...adminNavItems];
 
@@ -51,9 +51,7 @@ const Navbar: React.FC = () => {
         {/* Desktop Navigation */}
         <div className={styles.desktopNav}>
           {allNavItems.map((item) => {
-            // Hide auth-required items if not authenticated
-            if ('requireAuth' in item && item.requireAuth && !isAuthenticated) return null;
-            
+            // Show all items regardless of authentication for now
             return (
               <Link
                 key={item.path}
@@ -110,9 +108,7 @@ const Navbar: React.FC = () => {
       {isMobileMenuOpen && (
         <div className={styles.mobileNav}>
           {allNavItems.map((item) => {
-            // Hide auth-required items if not authenticated
-            if ('requireAuth' in item && item.requireAuth && !isAuthenticated) return null;
-            
+            // Show all items regardless of authentication for now
             return (
               <Link
                 key={item.path}
