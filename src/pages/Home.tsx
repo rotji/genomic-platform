@@ -11,13 +11,13 @@ const Home: React.FC = () => {
         <div className={styles.container}>
           <div className={styles.heroContent}>
             <h1 className={styles.heroTitle}>
-              Democratizing <span className={styles.highlight}>Genomic Analysis</span> 
-              <br />with Web3 Technology
+              The Future of <span className={styles.highlight}>Genetic Engineering</span> 
+              <br />Classical Analysis + AI Generation
             </h1>
             <p className={styles.heroDescription}>
-              Upload DNA/RNA sequences and get instant classical analysis results. 
-              Built on Stacks blockchain for secure, transparent, and accessible genomic insights 
-              for hospitals, researchers, and communities worldwide.
+              Analyze existing DNA/RNA sequences AND generate entirely new genetic code using AI. 
+              From NVIDIA BioNeMo EVO2 to custom protein design - built on Stacks blockchain 
+              for transparent, secure, and accessible genetic innovation worldwide.
             </p>
             <div className={styles.heroActions}>
               <Link to="/upload" className={styles.primaryButton}>
@@ -47,10 +47,21 @@ const Home: React.FC = () => {
               <div className={styles.featureIcon}>
                 <Dna size={32} />
               </div>
+              <h3 className={styles.featureTitle}>AI Genetic Code Generation</h3>
+              <p className={styles.featureDescription}>
+                Revolutionary AI-powered genetic design using NVIDIA BioNeMo EVO2 and 
+                alternatives. Generate new proteins, optimize DNA sequences, and design synthetic biology systems.
+              </p>
+            </div>
+
+            <div className={styles.featureCard}>
+              <div className={styles.featureIcon}>
+                <Dna size={32} />
+              </div>
               <h3 className={styles.featureTitle}>Classical Genomic Analysis</h3>
               <p className={styles.featureDescription}>
                 Mutation detection, sequence alignment, drug resistance screening, 
-                and comprehensive genomic annotations.
+                and comprehensive genomic annotations using proven bioinformatics methods.
               </p>
             </div>
 

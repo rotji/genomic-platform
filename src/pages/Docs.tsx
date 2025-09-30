@@ -124,6 +124,13 @@ const Docs: React.FC = () => {
             </h2>
             <div className={styles.cardGrid}>
               <div className={styles.docCard}>
+                <h3>🧬🤖 AI Genetic Code Generation</h3>
+                <p>Revolutionary AI-powered genetic design using NVIDIA BioNeMo EVO2 and alternatives for de novo DNA/RNA/protein generation.</p>
+                <a href="/docs/ai-genetic-generation.md" className={styles.cardLink}>
+                  AI Generation <ExternalLink size={16} />
+                </a>
+              </div>
+              <div className={styles.docCard}>
                 <h3>NFT Integration</h3>
                 <p>Genomic data ownership and NFT marketplace features.</p>
                 <a href="/docs/11th%20documentation.md" className={styles.cardLink}>
