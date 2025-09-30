@@ -5,8 +5,8 @@ import {
   PieChart, Pie, Cell, LineChart, Line
 } from 'recharts';
 import { 
-  Activity, FileText, TrendingUp, Clock, Database, 
-  CheckCircle, AlertCircle, Loader, Calendar
+  FileText, Clock, Database, 
+  CheckCircle, Loader, Calendar
 } from 'lucide-react';
 import { generateMockAnalyses, generateUserStats, formatBytes, getStatusColor, getAnalysisTypeIcon } from '../utils/mockData';
 import type { Analysis, UserStats } from '../types/dashboard';
