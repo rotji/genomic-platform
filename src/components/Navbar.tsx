@@ -12,10 +12,18 @@ const Navbar: React.FC = () => {
 
   const navItems = [
     { path: '/', label: 'Home' },
-    { path: '/upload', label: 'Upload DNA/RNA' },
-    { path: '/results', label: 'Results' },
+    { path: '/dashboard', label: 'Dashboard', requireAuth: true },
+    { path: '/upload', label: 'Upload DNA/RNA', requireAuth: true },
+    { path: '/results', label: 'Results', requireAuth: true },
     { path: '/docs', label: 'Documentation' },
   ];
+
+  // Add admin route for admin users
+  const adminNavItems = user?.role === 'admin' ? [
+    { path: '/admin', label: 'Admin', requireAuth: true, adminOnly: true }
+  ] : [];
+
+  const allNavItems = [...navItems, ...adminNavItems];
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -41,17 +49,22 @@ const Navbar: React.FC = () => {
 
         {/* Desktop Navigation */}
         <div className={styles.desktopNav}>
-          {navItems.map((item) => (
-            <Link
-              key={item.path}
-              to={item.path}
-              className={`${styles.navLink} ${
-                isActive(item.path) ? styles.active : ''
-              }`}
-            >
-              {item.label}
-            </Link>
-          ))}
+          {allNavItems.map((item) => {
+            // Hide auth-required items if not authenticated
+            if ('requireAuth' in item && item.requireAuth && !isAuthenticated) return null;
+            
+            return (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={`${styles.navLink} ${
+                  isActive(item.path) ? styles.active : ''
+                } ${'adminOnly' in item && item.adminOnly ? styles.adminLink : ''}`}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
         </div>
 
         {/* Auth Section */}
@@ -95,18 +108,23 @@ const Navbar: React.FC = () => {
       {/* Mobile Navigation */}
       {isMobileMenuOpen && (
         <div className={styles.mobileNav}>
-          {navItems.map((item) => (
-            <Link
-              key={item.path}
-              to={item.path}
-              className={`${styles.mobileNavLink} ${
-                isActive(item.path) ? styles.active : ''
-              }`}
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              {item.label}
-            </Link>
-          ))}
+          {allNavItems.map((item) => {
+            // Hide auth-required items if not authenticated
+            if ('requireAuth' in item && item.requireAuth && !isAuthenticated) return null;
+            
+            return (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={`${styles.mobileNavLink} ${
+                  isActive(item.path) ? styles.active : ''
+                }`}
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
           
           {/* Mobile Auth Section */}
           <div className={styles.mobileAuthSection}>

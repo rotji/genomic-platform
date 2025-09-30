@@ -6,6 +6,8 @@ import Home from './pages/Home';
 import Upload from './pages/Upload';
 import Results from './pages/Results';
 import Docs from './pages/Docs';
+import Dashboard from './pages/Dashboard';
+import AdminDashboard from './pages/AdminDashboard';
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
 import './App.css';
@@ -19,6 +21,8 @@ function App() {
           <Route path="/signin" element={<SignIn />} />
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="admin" element={<AdminDashboard />} />
             <Route path="upload" element={<Upload />} />
             <Route path="results" element={<Results />} />
             <Route path="docs" element={<Docs />} />

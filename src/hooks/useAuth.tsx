@@ -65,6 +65,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         id: Date.now().toString(),
         email: data.email,
         name: data.name,
+        role: 'user', // Default role for new users
         createdAt: new Date()
       };
 
@@ -88,6 +89,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         id: '1',
         email: data.email,
         name: 'User',
+        role: data.email.includes('admin') ? 'admin' : 'user', // Simple role assignment
         createdAt: new Date()
       };
 
