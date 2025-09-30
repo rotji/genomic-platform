@@ -17,9 +17,9 @@
     "react-dom": "^19.1.1",
     "react-router-dom": "^6.26.0",
     "axios": "^1.7.0",
-    "@stacks/connect": "^7.12.0",
-    "@stacks/transactions": "^6.16.0",
-    "@stacks/network": "^6.16.0",
+    "@stacks/connect": "^7.8.0",
+    "@stacks/transactions": "^6.13.0",
+    "@stacks/network": "^6.13.0",
     "react-dropzone": "^14.2.0",
     "react-hot-toast": "^2.4.0",
     "lucide-react": "^0.441.0"
