@@ -49,14 +49,12 @@
   display: flex;
   gap: 2rem;
   align-items: center;
-  flex: 1;
-  justify-content: center;
 }
 
 .navLink {
   text-decoration: none;
-  color: #6b7280;
-  font-weight: 500;
+  color: #374151;
+  font-weight: 600;
   padding: 0.5rem 1rem;
   border-radius: 0.375rem;
   transition: all 0.2s ease;
@@ -73,78 +71,97 @@
   background-color: #eff6ff;
 }
 
-.adminLink {
-  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-  color: white !important;
-  border-radius: 6px;
-}
-
-.adminLink:hover {
-  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
-  color: white !important;
-}
-
-.mobileMenuButton {
-  display: none;
+/* Menu Button - Always visible */
+.menuButton {
+  display: block;
   background: none;
   border: none;
-  color: #6b7280;
+  color: #374151;
   cursor: pointer;
   padding: 0.5rem;
   border-radius: 0.375rem;
   transition: all 0.2s ease;
 }
 
-.mobileMenuButton:hover {
+.menuButton:hover {
   color: #3b82f6;
   background-color: #f3f4f6;
 }
 
-.mobileNav {
-  background-color: #ffffff;
-  border-top: 1px solid #e5e7eb;
-  padding: 1rem;
+/* Dropdown Menu */
+.dropdownMenu {
   position: absolute;
   top: 100%;
-  left: 0;
-  right: 0;
+  right: 1rem;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1);
   z-index: 50;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  min-width: 250px;
 }
 
-.mobileNavLink {
-  display: block;
+.menuContent {
+  padding: 0.5rem;
+}
+
+.menuItemWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #f3f4f6;
+  padding: 0.25rem 0;
+}
+
+.menuItemWrapper:last-child {
+  border-bottom: none;
+}
+
+.menuItem {
   text-decoration: none;
-  color: #6b7280;
+  color: #374151;
   font-weight: 500;
-  padding: 0.75rem;
+  padding: 0.75rem 1rem;
   border-radius: 0.375rem;
   transition: all 0.2s ease;
-  margin-bottom: 0.25rem;
+  flex: 1;
 }
 
-.mobileNavLink:hover {
+.menuItem:hover {
   color: #3b82f6;
-  background-color: #f3f4f6;
+  background-color: #f9fafb;
 }
 
-.mobileNavLink.active {
+.menuItem.active {
   color: #3b82f6;
   background-color: #eff6ff;
 }
 
+.closeButton {
+  background: none;
+  border: none;
+  color: #9ca3af;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  transition: all 0.2s ease;
+  margin-left: 0.5rem;
+}
+
+.closeButton:hover {
+  color: #ef4444;
+  background-color: #fef2f2;
+}
+
 /* Mobile Responsive */
 @media (max-width: 768px) {
-  .desktopNav {
+  .authSection {
     display: none;
   }
 
-  .mobileMenuButton {
-    display: block;
-  }
-
-  .mobileNav {
-    display: block;
+  .dropdownMenu {
+    right: 0.5rem;
+    min-width: 200px;
   }
 
   .container {
@@ -153,10 +170,6 @@
 
   .logoText {
     font-size: 1.125rem;
-  }
-
-  .authSection {
-    display: none;
   }
 }
 
@@ -202,36 +215,39 @@
 .authButtons {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 1rem;
 }
 
 .signInButton {
   text-decoration: none;
-  color: #374151;
-  font-weight: 500;
-  padding: 0.5rem 1rem;
+  color: white;
+  font-weight: 600;
+  padding: 0.5rem 1.25rem;
   border-radius: 0.375rem;
   transition: all 0.2s ease;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
 }
 
 .signInButton:hover {
-  color: #3b82f6;
-  background-color: #eff6ff;
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
 }
 
 .signUpButton {
   text-decoration: none;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
   color: white;
   font-weight: 600;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1.25rem;
   border-radius: 0.375rem;
   transition: all 0.2s ease;
 }
 
 .signUpButton:hover {
+  background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
 }
 
 /* Mobile Auth Styles */

@@ -10,21 +10,19 @@ const Navbar: React.FC = () => {
   const location = useLocation();
   const { user, isAuthenticated, signOut } = useAuth();
 
-  const navItems = [
+  const mainNavItems = [
     { path: '/', label: 'Home' },
-    { path: '/dashboard', label: 'Dashboard', requireAuth: true },
-    { path: '/upload', label: 'Upload DNA/RNA', requireAuth: true },
-    { path: '/results', label: 'Results', requireAuth: true },
+    { path: '/upload', label: 'Upload DNA/RNA' },
+    { path: '/results', label: 'Results' },
+  ];
+
+  // Menu items that go in the hamburger dropdown
+  const menuItems = [
+    { path: '/dashboard', label: 'Dashboard' },
+    { path: '/admin', label: 'Admin Dashboard' },
     { path: '/docs', label: 'Documentation' },
     { path: '/faq', label: 'FAQ' },
   ];
-
-  // Add admin route for all users (for testing)
-  const adminNavItems = [
-    { path: '/admin', label: 'Admin', requireAuth: true, adminOnly: true }
-  ];
-
-  const allNavItems = [...navItems, ...adminNavItems];
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -50,20 +48,17 @@ const Navbar: React.FC = () => {
 
         {/* Desktop Navigation */}
         <div className={styles.desktopNav}>
-          {allNavItems.map((item) => {
-            // Show all items regardless of authentication for now
-            return (
-              <Link
-                key={item.path}
-                to={item.path}
-                className={`${styles.navLink} ${
-                  isActive(item.path) ? styles.active : ''
-                } ${'adminOnly' in item && item.adminOnly ? styles.adminLink : ''}`}
-              >
-                {item.label}
-              </Link>
-            );
-          })}
+          {mainNavItems.map((item) => (
+            <Link
+              key={item.path}
+              to={item.path}
+              className={`${styles.navLink} ${
+                isActive(item.path) ? styles.active : ''
+              }`}
+            >
+              {item.label}
+            </Link>
+          ))}
         </div>
 
         {/* Auth Section */}
@@ -94,72 +89,40 @@ const Navbar: React.FC = () => {
           )}
         </div>
 
-        {/* Mobile Menu Button */}
+        {/* Menu Button (Always visible) */}
         <button
-          className={styles.mobileMenuButton}
+          className={styles.menuButton}
           onClick={toggleMobileMenu}
-          aria-label="Toggle mobile menu"
+          aria-label="Toggle menu"
         >
           {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
-      {/* Mobile Navigation */}
+      {/* Dropdown Menu */}
       {isMobileMenuOpen && (
-        <div className={styles.mobileNav}>
-          {allNavItems.map((item) => {
-            // Show all items regardless of authentication for now
-            return (
-              <Link
-                key={item.path}
-                to={item.path}
-                className={`${styles.mobileNavLink} ${
-                  isActive(item.path) ? styles.active : ''
-                }`}
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                {item.label}
-              </Link>
-            );
-          })}
-          
-          {/* Mobile Auth Section */}
-          <div className={styles.mobileAuthSection}>
-            {isAuthenticated ? (
-              <>
-                <div className={styles.mobileUserInfo}>
-                  <User size={16} />
-                  <span>{user?.name || user?.email}</span>
-                </div>
+        <div className={styles.dropdownMenu}>
+          <div className={styles.menuContent}>
+            {menuItems.map((item) => (
+              <div key={item.path} className={styles.menuItemWrapper}>
+                <Link
+                  to={item.path}
+                  className={`${styles.menuItem} ${
+                    isActive(item.path) ? styles.active : ''
+                  }`}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {item.label}
+                </Link>
                 <button
-                  onClick={() => {
-                    handleSignOut();
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className={styles.mobileSignOutButton}
+                  className={styles.closeButton}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  aria-label={`Close ${item.label}`}
                 >
-                  <LogOut size={16} />
-                  Sign Out
+                  <X size={16} />
                 </button>
-              </>
-            ) : (
-              <>
-                <Link
-                  to="/signin"
-                  className={styles.mobileSignInButton}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Sign In
-                </Link>
-                <Link
-                  to="/signup"
-                  className={styles.mobileSignUpButton}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Sign Up
-                </Link>
-              </>
-            )}
+              </div>
+            ))}
           </div>
         </div>
       )}

@@ -11,13 +11,13 @@ const Home: React.FC = () => {
         <div className={styles.container}>
           <div className={styles.heroContent}>
             <h1 className={styles.heroTitle}>
-              The Future of <span className={styles.highlight}>Genetic Engineering</span> 
-              <br />Classical Analysis + AI Generation
+              Upload Your <span className={styles.highlight}>DNA/RNA Data Files</span> 
+              <br />For Analysis
             </h1>
             <p className={styles.heroDescription}>
-              Analyze existing DNA/RNA sequences AND generate entirely new genetic code using AI. 
-              From NVIDIA BioNeMo EVO2 to custom protein design - built on Stacks blockchain 
-              for transparent, secure, and accessible genetic innovation worldwide.
+              A comprehensive Web3 native genomic analysis platform that democratizes DNA/RNA analysis. 
+              Built for hospitals, labs, researchers, students, companies, and communities - 
+              making advanced genetic analysis accessible to everyone, everywhere.
             </p>
             <div className={styles.heroActions}>
               <Link to="/upload" className={styles.primaryButton}>
