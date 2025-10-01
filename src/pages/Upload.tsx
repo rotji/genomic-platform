@@ -1,8 +1,156 @@
-import React from 'react';
-import { Upload as UploadIcon, FileText, Info } from 'lucide-react';
+import React, { useState, useCallback } from 'react';
+import { useDropzone } from 'react-dropzone';
+import { Upload as UploadIcon, FileText, Info, X, CheckCircle, AlertCircle, Clock } from 'lucide-react';
+import toast from 'react-hot-toast';
 import styles from './Upload.module.css';
 
+interface UploadedFile {
+  id: string;
+  file: File;
+  name: string;
+  size: number;
+  type: string;
+  status: 'uploading' | 'completed' | 'error' | 'validating';
+  progress: number;
+  error?: string;
+  metadata?: {
+    sequences?: number;
+    format?: string;
+    encoding?: string;
+  };
+}
+
+const ACCEPTED_FORMATS = {
+  'text/plain': ['.txt', '.fasta', '.fastq', '.fa', '.fq'],
+  'application/octet-stream': ['.bam', '.sam'],
+  'text/csv': ['.csv'],
+  'application/json': ['.vcf'],
+};
+
+const MAX_FILE_SIZE = 200 * 1024 * 1024 * 1024; // 200GB
+
 const Upload: React.FC = () => {
+  const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
+
+  const validateFile = (file: File): { isValid: boolean; error?: string } => {
+    // Check file size
+    if (file.size > MAX_FILE_SIZE) {
+      return { isValid: false, error: 'File size exceeds 200GB limit' };
+    }
+
+    // Check file extension
+    const extension = '.' + file.name.split('.').pop()?.toLowerCase();
+    const supportedExtensions = Object.values(ACCEPTED_FORMATS).flat();
+    
+    if (!supportedExtensions.includes(extension)) {
+      return { 
+        isValid: false, 
+        error: `Unsupported file format. Supported: ${supportedExtensions.join(', ')}` 
+      };
+    }
+
+    return { isValid: true };
+  };
+
+  const generateFileId = (): string => {
+    return Math.random().toString(36).substr(2, 9);
+  };
+
+  const simulateUpload = (fileId: string) => {
+    const interval = setInterval(() => {
+      setUploadedFiles(prev => prev.map(file => {
+        if (file.id === fileId && file.status === 'uploading') {
+          const newProgress = Math.min(file.progress + Math.random() * 20, 100);
+          
+          if (newProgress >= 100) {
+            clearInterval(interval);
+            return {
+              ...file,
+              progress: 100,
+              status: 'completed',
+              metadata: {
+                sequences: Math.floor(Math.random() * 10000) + 1000,
+                format: file.name.split('.').pop()?.toUpperCase(),
+                encoding: 'UTF-8'
+              }
+            };
+          }
+          
+          return { ...file, progress: newProgress };
+        }
+        return file;
+      }));
+    }, 500);
+  };
+
+  const onDrop = useCallback((acceptedFiles: File[], rejectedFiles: any[]) => {
+    // Handle rejected files
+    rejectedFiles.forEach(({ file, errors }) => {
+      errors.forEach((error: any) => {
+        toast.error(`${file.name}: ${error.message}`);
+      });
+    });
+
+    // Process accepted files
+    acceptedFiles.forEach(file => {
+      const validation = validateFile(file);
+      
+      if (!validation.isValid) {
+        toast.error(`${file.name}: ${validation.error}`);
+        return;
+      }
+
+      const fileId = generateFileId();
+      const uploadFile: UploadedFile = {
+        id: fileId,
+        file,
+        name: file.name,
+        size: file.size,
+        type: file.type,
+        status: 'uploading',
+        progress: 0,
+      };
+
+      setUploadedFiles(prev => [...prev, uploadFile]);
+      toast.success(`Started uploading ${file.name}`);
+      
+      // Simulate upload process
+      simulateUpload(fileId);
+    });
+  }, []);
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    accept: ACCEPTED_FORMATS,
+    maxSize: MAX_FILE_SIZE,
+    multiple: true,
+  });
+
+  const removeFile = (fileId: string) => {
+    setUploadedFiles(prev => prev.filter(file => file.id !== fileId));
+    toast.success('File removed');
+  };
+
+  const formatFileSize = (bytes: number): string => {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+  };
+
+  const getStatusIcon = (status: UploadedFile['status']) => {
+    switch (status) {
+      case 'uploading':
+        return <Clock className={styles.statusIcon} />;
+      case 'completed':
+        return <CheckCircle className={styles.statusIcon} />;
+      case 'error':
+        return <AlertCircle className={styles.statusIcon} />;
+      default:
+        return <Clock className={styles.statusIcon} />;
+    }
+  };
   return (
     <div className={styles.upload}>
       <div className={styles.container}>
@@ -15,21 +163,72 @@ const Upload: React.FC = () => {
         </div>
 
         <div className={styles.content}>
-          {/* Upload Area */}
+          {/* Enhanced Upload Area with Drag & Drop */}
           <div className={styles.uploadSection}>
-            <div className={styles.uploadArea}>
+            <div 
+              {...getRootProps()} 
+              className={`${styles.uploadArea} ${isDragActive ? styles.dragActive : ''}`}
+            >
+              <input {...getInputProps()} />
               <div className={styles.uploadIcon}>
                 <UploadIcon size={48} />
               </div>
-              <h3 className={styles.uploadTitle}>Drop files here or click to browse</h3>
+              <h3 className={styles.uploadTitle}>
+                {isDragActive ? 'Drop files here...' : 'Drop files here or click to browse'}
+              </h3>
               <p className={styles.uploadText}>
                 Maximum file size: 200GB • Supported formats: FASTA, FASTQ, VCF, BAM, TXT
               </p>
-              <button className={styles.browseButton}>
+              <button className={styles.browseButton} type="button">
                 <FileText size={20} />
                 Choose Files
               </button>
             </div>
+
+            {/* File Upload List */}
+            {uploadedFiles.length > 0 && (
+              <div className={styles.fileList}>
+                <h4 className={styles.fileListTitle}>Uploaded Files</h4>
+                {uploadedFiles.map(file => (
+                  <div key={file.id} className={styles.fileItem}>
+                    <div className={styles.fileInfo}>
+                      <div className={styles.fileName}>
+                        {getStatusIcon(file.status)}
+                        <span>{file.name}</span>
+                      </div>
+                      <div className={styles.fileDetails}>
+                        <span className={styles.fileSize}>{formatFileSize(file.size)}</span>
+                        {file.metadata && (
+                          <span className={styles.fileFormat}>
+                            {file.metadata.format} • {file.metadata.sequences} sequences
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    
+                    {file.status === 'uploading' && (
+                      <div className={styles.progressSection}>
+                        <div className={styles.progressBar}>
+                          <div 
+                            className={styles.progressFill}
+                            style={{ width: `${file.progress}%` }}
+                          />
+                        </div>
+                        <span className={styles.progressText}>{Math.round(file.progress)}%</span>
+                      </div>
+                    )}
+                    
+                    <button 
+                      onClick={() => removeFile(file.id)}
+                      className={styles.removeButton}
+                      type="button"
+                    >
+                      <X size={16} />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Info Panel */}
@@ -83,12 +282,33 @@ const Upload: React.FC = () => {
           </div>
         </div>
 
-        {/* Recent Uploads */}
+        {/* Recent Uploads Section */}
         <div className={styles.recentSection}>
-          <h3 className={styles.recentTitle}>Recent Uploads</h3>
-          <div className={styles.emptyState}>
-            <p>No uploads yet. Upload your first genomic file to get started!</p>
-          </div>
+          <h3 className={styles.recentTitle}>Upload Summary</h3>
+          {uploadedFiles.length === 0 ? (
+            <div className={styles.emptyState}>
+              <p>No uploads yet. Upload your first genomic file to get started!</p>
+            </div>
+          ) : (
+            <div className={styles.uploadStats}>
+              <div className={styles.stat}>
+                <span className={styles.statNumber}>{uploadedFiles.length}</span>
+                <span className={styles.statLabel}>Files Uploaded</span>
+              </div>
+              <div className={styles.stat}>
+                <span className={styles.statNumber}>
+                  {uploadedFiles.filter(f => f.status === 'completed').length}
+                </span>
+                <span className={styles.statLabel}>Completed</span>
+              </div>
+              <div className={styles.stat}>
+                <span className={styles.statNumber}>
+                  {uploadedFiles.filter(f => f.status === 'uploading').length}
+                </span>
+                <span className={styles.statLabel}>In Progress</span>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

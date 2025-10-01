@@ -56,123 +56,164 @@
 - Add toast notifications system
 - Handle network errors gracefully
 
-### 9. **Set Up Node.js Backend Foundation**
-- Initialize Express + TypeScript backend
+### 9. **Set Up Node.js Backend Foundation (Blockchain-First)**
+- Initialize Express + TypeScript backend with extensive Stacks.js integration
 - Configure CORS, helmet, and security middleware
-- Set up basic API route structure
-- Add environment variables configuration
+- Set up PostgreSQL database connection (Supabase free tier)
+- Add environment variables for Stacks network configuration
+- Create Stacks.js transaction broadcasting utilities
+- Implement JWT + Stacks signature authentication middleware
+- Set up MinIO for S3-compatible file storage (free self-hosted)
 
-### 10. **Create Basic API Endpoints**
-- `/api/health` - Health check endpoint
-- `/api/upload` - File upload handling
-- `/api/docs` - Documentation serving
-- Add proper error handling middleware
+### 10. **Create Blockchain-Integrated API Endpoints**
+- `/api/auth/connect-wallet` - Stacks wallet authentication
+- `/api/files/upload` - File upload with blockchain registration
+- `/api/analysis/start` - Start analysis with oracle verification
+- `/api/oracle/verify` - Oracle data verification endpoints
+- `/api/blockchain/transaction-status` - Track Stacks transactions
+- Add comprehensive error handling and Stacks network integration
 
-### 11. **Implement File Storage System**
-- Set up local file storage for development
-- Add file validation and security checks
-- Create file metadata management
-- Implement basic file cleanup
+### 11. **Implement File Storage with Blockchain Proof**
+- Set up MinIO container for local S3-compatible storage
+- Create cryptographic file hash generation (SHA-256)
+- Implement blockchain file registration via Clarity contracts
+- Add file metadata management with oracle verification
+- Create immutable proof-of-upload system
+- Implement file integrity verification system
 
-### 12. **Add Basic Frontend-Backend Integration**
-- Create API client utilities
-- Connect upload form to backend
-- Display upload status and results
-- Handle API errors in UI
+### 12. **Add Stacks.js Frontend-Backend Integration**
+- Create comprehensive Stacks.js API client utilities
+- Connect upload form to backend with blockchain registration
+- Implement real-time transaction status tracking
+- Add contract interaction status display
+- Handle Stacks network errors and retry logic
+- Create blockchain-verified upload status system
 
-### 13. **Set Up Database Foundation (MongoDB)**
-- Configure MongoDB connection
-- Create basic schemas (User, File, Analysis)
-- Set up database models with Mongoose
-- Add connection error handling
+### 13. **Set Up Database Foundation (PostgreSQL + Blockchain)**
+- Configure PostgreSQL with Supabase free tier
+- Create blockchain-linked schemas (User, File, Analysis, Oracle)
+- Set up database models with Stacks address integration
+- Add connection error handling and failover
+- Implement blockchain data synchronization
+- Create oracle data caching and verification tables
 
-### 14. **Create Basic User System**
-- Simple user registration/login forms
-- Basic session management
-- User profile creation
-- Local authentication (before Web3)
+### 14. **Create Stacks-Native User System**
+- Implement Stacks Connect wallet authentication
+- Create user profiles linked to Stacks addresses
+- Add Clarity smart contract user registry
+- Implement blockchain-based session management
+- Create user reputation and verification system
+- Add STX balance and transaction history tracking
 
-### 15. **Add Basic Genomic File Processing**
-- Simple FASTA file parser
-- Basic sequence validation
-- File format detection
-- Sequence statistics (length, GC content)
+### 15. **Add Oracle-Verified Genomic File Processing**
+- Set up Python FastAPI microservice for analysis
+- Implement BioPython FASTA/FASTQ parsers
+- Create oracle integration for reference genome verification
+- Add external database connections (NCBI, ClinVar via oracle)
+- Implement blockchain proof generation for analysis results
+- Create oracle-signed analysis certificates
 
 ---
 
 ## 🟡 **PHASE 2: CORE FUNCTIONALITY (Items 16-35)**
 
-### 16. **Integrate Stacks.js for Web3 Authentication**
-- Install and configure @stacks/connect
-- Create wallet connection component
-- Implement Stacks authentication flow
-- Add user session management
+### 16. **Enhance Stacks.js Integration & Smart Contracts**
+- Deploy comprehensive Clarity smart contracts (user-registry, file-registry, analysis-proof, genomic-oracle)
+- Implement extensive Stacks.js frontend integration for all contract interactions
+- Create wallet connection with persistent session management
+- Add STX token payment processing for premium features
+- Implement blockchain transaction monitoring and status tracking
+- Create immutable analysis proof certificates on Stacks blockchain
 
-### 17. **Create Classical Genomic Analysis Pipeline**
-- Set up Python microservice for analysis
-- Implement basic sequence alignment
-- Add mutation detection algorithms
-- Create GC content and statistics analysis
+### 17. **Create Oracle-Enhanced Genomic Analysis Pipeline**
+- Set up Python microservice with oracle integration
+- Implement oracle-verified sequence alignment algorithms
+- Add mutation detection with ClinVar oracle cross-verification
+- Create GC content analysis with reference genome oracle validation
+- Implement multi-source oracle consensus for analysis verification
+- Add external database integration (NCBI, EBI) via oracle services
 
-### 18. **Build Results Display System**
-- Create interactive results tables
-- Add mutation visualization components
-- Implement downloadable reports (PDF/CSV)
-- Add sequence comparison tools
+### 18. **Build Blockchain-Verified Results Display System**
+- Create interactive results tables with blockchain proof display
+- Add mutation visualization with oracle-verified annotations
+- Implement downloadable reports with cryptographic signatures
+- Add sequence comparison tools with oracle reference data
+- Create blockchain certificate viewer for analysis proofs
+- Implement oracle data provenance tracking
 
-### 19. **Implement Basic Clarity Smart Contracts**
-- Create `user-registry.clar` contract
-- Build `data-provenance.clar` contract
-- Add `analysis-registry.clar` contract
-- Set up local Clarity development environment
+### 19. **Implement Comprehensive Clarity Smart Contracts**
+- Deploy `user-registry.clar` for Stacks-native user management
+- Build `file-registry.clar` for immutable file tracking
+- Add `analysis-registry.clar` for analysis proof storage
+- Create `genomic-oracle.clar` for external data verification
+- Implement `payment-processor.clar` for STX token transactions
+- Set up local Clarity development environment with testing suite
 
-### 20. **Create Smart Contract Integration Layer**
-- Connect frontend to Clarity contracts
-- Implement contract deployment scripts
-- Add transaction status tracking
-- Create contract interaction utilities
+### 20. **Create Advanced Smart Contract Integration Layer**
+- Connect all frontend components to Clarity contracts via Stacks.js
+- Implement comprehensive contract deployment and upgrade scripts
+- Add real-time transaction status tracking across all contracts
+- Create contract interaction utilities with error handling and retry logic
+- Implement contract event listening for real-time updates
+- Add contract call batching for complex multi-step operations
 
-### 21. **Add Drug Resistance Detection Module**
-- Integrate resistance mutation databases
-- Create resistance screening algorithms
-- Build clinical report generation
-- Add pathogen-specific analysis
+### 21. **Add Oracle-Verified Drug Resistance Detection Module**
+- Integrate resistance mutation databases via oracle services
+- Create oracle-enhanced resistance screening algorithms
+- Build clinical report generation with oracle-verified data
+- Add pathogen-specific analysis with external database oracle integration
+- Implement resistance gene annotation with oracle cross-verification
+- Create oracle-signed clinical significance reports
 
-### 22. **Implement Advanced File Upload**
-- Add chunked upload for large files
-- Support multiple file formats (BAM, VCF)
-- Create upload queue management
-- Add resume/retry functionality
+### 22. **Implement Advanced File Upload with Blockchain Integration**
+- Add chunked upload for large genomic files with blockchain tracking
+- Support multiple file formats (BAM, VCF) with format-specific oracle verification
+- Create upload queue management with blockchain status tracking
+- Add resume/retry functionality with blockchain state recovery
+- Implement multi-file batch upload with single blockchain transaction
+- Create upload verification system with oracle-checked file integrity
 
-### 23. **Create User Dashboard**
-- Build personal analysis history
-- Add file management interface
-- Display contract interaction history
-- Create usage statistics
+### 23. **Create Blockchain-Native User Dashboard**
+- Build personal analysis history from blockchain contract data
+- Add file management interface with on-chain file registry integration
+- Display comprehensive contract interaction history and transaction logs
+- Create usage statistics dashboard with blockchain analytics
+- Implement Stacks wallet integration with balance and transaction tracking
+- Add oracle verification status tracking for all user activities
 
-### 24. **Add Analysis Job Queue System**
-- Implement background job processing
-- Create job status tracking
-- Add email notifications
-- Build analysis priority system
+### 24. **Add Oracle-Enhanced Analysis Job Queue System**
+- Implement background job processing with oracle pre-verification
+- Create job status tracking with blockchain proof generation
+- Add email notifications triggered by blockchain events
+- Build analysis priority system with STX token payment integration
+- Implement oracle data freshness verification for queued jobs
+- Create job result validation with multi-oracle consensus
 
-### 25. **Create Educational Module**
-- Build interactive genomics tutorials
-- Add sequence visualization tools
-- Create learning progress tracking
-- Implement certification system
+### 25. **Create Educational Module with Blockchain Certificates**
+- Build interactive genomics tutorials with progress tracking on blockchain
+- Add sequence visualization tools with oracle-verified reference data
+- Create learning progress tracking with Clarity smart contract integration
+- Implement blockchain-based certification system with NFT certificates
+- Add oracle-verified educational content and quizzes
+- Create educational achievement NFTs minted on Stacks blockchain
 
-### 26. **Implement Oracle Integration Foundation**
-- Create oracle service architecture
-- Add external database connections
-- Build data verification system
-- Create oracle-contract bridge
+### 26. **Implement Comprehensive Oracle Integration Foundation**
+- Create multi-source oracle service architecture (NCBI, ClinVar, dbSNP, EBI)
+- Add external genomic database connections with cryptographic verification
+- Build oracle data verification system with signature checking
+- Create oracle-contract bridge for blockchain data storage
+- Implement oracle consensus mechanisms for multi-source verification
+- Add oracle data freshness monitoring and automatic updates
+- Create oracle service monitoring dashboard with uptime tracking
 
-### 27. **Add Advanced Authentication & Permissions**
-- Implement role-based access control
-- Create institution/organization accounts
-- Add data sharing permissions
-- Build consent management system
+### 27. **Add Advanced Authentication & Permissions with Blockchain Identity**
+- Implement role-based access control via Clarity smart contracts
+- Create institution/organization accounts with multi-signature support
+- Add data sharing permissions managed on blockchain
+- Build consent management system with immutable blockchain records
+- Implement Stacks-native identity verification for institutions
+- Add oracle-verified institutional credentials and certifications
+- Create permission delegation system with smart contract enforcement
 
 ### 28. **Create API Documentation & Testing**
 - Generate OpenAPI/Swagger docs
@@ -232,11 +273,15 @@
 - Build NFT marketplace
 - Implement royalty system
 
-### 37. **Add Advanced Oracle Network**
-- Connect to multiple genomic databases
-- Implement real-time data feeds
-- Add oracle consensus mechanisms
-- Create data verification protocols
+### 37. **Add Advanced Oracle Network with Multi-Chain Integration**
+- Connect to multiple genomic databases with redundant oracle nodes
+- Implement real-time data feeds from NCBI, ClinVar, dbSNP, and EBI
+- Add oracle consensus mechanisms with Byzantine fault tolerance
+- Create data verification protocols with cryptographic proofs
+- Implement cross-chain oracle bridges for interoperability
+- Add oracle reputation system and automatic node selection
+- Create oracle data marketplace for premium genomic datasets
+- Implement oracle-verified real-time mutation database updates
 
 ### 38. **Create Multi-Domain Modules**
 - Agriculture genomics module
@@ -378,34 +423,46 @@
 
 ---
 
-## 📊 **BUILD PRIORITY MATRIX**
+## 📊 **BUILD PRIORITY MATRIX (Updated with Blockchain-First Approach)**
 
-| Phase | Complexity | Duration | Dependencies | User Impact |
-|-------|------------|----------|--------------|-------------|
-| Phase 1 (1-15) | Low | 2-4 weeks | None | Foundation |
-| Phase 2 (16-37) | Medium | 6-10 weeks | Phase 1 | Core Features |
-| Phase 3 (38-57) | High | 12-20 weeks | Phase 1+2 | Advanced Features |
-
----
-
-## 🎯 **MILESTONE CHECKPOINTS**
-
-- **Milestone 1** (Item 15): Basic functional frontend + backend
-- **Milestone 2** (Item 25): Web3 integration + core genomic analysis
-- **Milestone 3** (Item 37): Full-featured platform ready for beta
-- **Milestone 4** (Item 47): Enterprise-ready platform with AI generation
-- **Milestone 5** (Item 57): Global-scale production platform
+| Phase | Complexity | Duration | Dependencies | User Impact | Blockchain Integration |
+|-------|------------|----------|--------------|-------------|----------------------|
+| Phase 1 (1-15) | Low-Medium | 3-5 weeks | None | Foundation | Stacks.js + Basic Contracts |
+| Phase 2 (16-37) | Medium-High | 8-12 weeks | Phase 1 | Core Features | Full Oracle + Advanced Contracts |
+| Phase 3 (38-57) | High | 16-24 weeks | Phase 1+2 | Advanced Features | Multi-Chain + AI Integration |
 
 ---
 
-## 📝 **NOTES**
+## 🎯 **MILESTONE CHECKPOINTS (Blockchain-Enhanced)**
 
-- Each item should be completed before moving to the next
-- Items within same phase can be developed in parallel by different team members
-- Regular testing and documentation updates required throughout
-- Security audits recommended at end of each phase
-- User feedback collection important after Milestones 2 and 3
-- AI features (items 40-42) represent major platform evolution
+- **Milestone 1** (Item 15): Blockchain-native frontend + backend with oracle integration
+- **Milestone 2** (Item 25): Full Web3 platform with comprehensive oracle verification
+- **Milestone 3** (Item 37): Production-ready platform with advanced oracle network
+- **Milestone 4** (Item 47): Enterprise platform with AI generation and multi-chain support
+- **Milestone 5** (Item 57): Global-scale platform with full decentralization
 
-**Total Estimated Development Time**: 22-36 weeks (5.5-9 months)  
-**Team Size Recommendation**: 4-6 developers (Frontend, Backend, AI/ML, Blockchain, DevOps)
+---
+
+## 📝 **NOTES (Updated for Blockchain-First Development)**
+
+- Each item integrates extensively with Stacks blockchain and oracle services
+- All data operations include blockchain proof generation and oracle verification
+- Free-tier resources used throughout: Supabase PostgreSQL, MinIO storage, Railway hosting
+- Stacks.js integration required in every frontend component
+- Oracle verification mandatory for all external data sources
+- Smart contracts deployed on Stacks testnet for development (free)
+- Comprehensive transaction tracking and blockchain event monitoring
+- Multi-signature support for institutional accounts
+- Immutable audit trails for all platform operations
+- Regular oracle node health monitoring and failover mechanisms
+
+**Technology Stack Summary**:
+- **Frontend**: React + TypeScript + Stacks.js (extensive integration)
+- **Backend**: Node.js + Express + PostgreSQL + MinIO
+- **Analysis**: Python + FastAPI + BioPython + Oracle integration
+- **Blockchain**: Stacks + Clarity smart contracts + extensive Stacks.js
+- **Oracle**: Custom multi-source oracle network
+- **Hosting**: Free tiers (Supabase, Railway, Netlify)
+
+**Total Estimated Development Time**: 27-41 weeks (7-10 months) with blockchain integration  
+**Team Size Recommendation**: 5-7 developers (Frontend/Stacks.js, Backend, Python/Oracle, Blockchain/Clarity, AI/ML, DevOps)
