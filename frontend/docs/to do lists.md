@@ -525,6 +525,37 @@ npm run dev:all        # Runs everything
 - Use Docker only when all services need integration
 - Each service has clear separation of concerns
 
+### **Windows Python Alias Challenge**
+
+**Challenge**: Windows 10/11 includes Python app execution aliases that redirect `python` commands to Microsoft Store instead of installed Python.
+
+**Problem**: 
+- `python --version` opens Microsoft Store instead of showing Python version
+- Cannot run `python` commands directly from terminal
+- Blocks normal Python development workflow
+
+**Root Cause**: Windows Store app execution aliases (0-byte stub files) intercept Python commands.
+
+**Current Workaround**:
+```bash
+# Instead of: python script.py
+# We use: C:\Users\PC\AppData\Local\Programs\Python\Python313\python.exe script.py
+
+# Example for our FastAPI server:
+C:\Users\PC\AppData\Local\Programs\Python\Python313\python.exe src/main.py
+```
+
+**Attempted Solutions**:
+1. **Settings Method**: Tried accessing "App execution aliases" in Windows Settings (interface varies by Windows version)
+2. **Registry Method**: Attempted registry modification (requires admin privileges)
+3. **PATH Method**: Adding Python to PATH (overridden by Windows aliases)
+
+**Temporary Solution**: Using full Python path for all commands until alias issue is resolved.
+
+**Impact**: Longer commands but fully functional Python development environment.
+
+**Status**: ⚠️ **Unresolved** - Python works but requires full path commands
+
 ---
 
 ## 📝 **NOTES (Updated for Blockchain-First Development)**
