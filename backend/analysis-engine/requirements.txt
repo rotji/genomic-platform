@@ -1,1 +1,23 @@
-# Python requirements
+# FastAPI and web framework
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+pydantic>=2.5.0
+
+# Genomic analysis libraries (compatible with Python 3.13)
+biopython>=1.83
+numpy>=1.26.0
+pandas>=2.1.0
+
+# HTTP and external API integration
+httpx>=0.25.0
+requests>=2.31.0
+
+# Environment and configuration
+python-dotenv>=1.0.0
+
+# Logging and monitoring
+structlog>=23.0.0
+
+# Development dependencies
+pytest>=7.4.0
+pytest-asyncio>=0.21.0

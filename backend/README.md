@@ -21,11 +21,17 @@ npm run dev
 # Server runs on http://localhost:3001
 ```
 
-### Analysis Engine (Python) - Coming Soon
+### Analysis Engine (Python) ✅ Ready
 ```bash
 cd analysis-engine
-pip install -r requirements.txt
-python main.py
+# Install dependencies
+C:\Users\PC\AppData\Local\Programs\Python\Python313\python.exe -m pip install -r requirements.txt
+
+# Start FastAPI server
+C:\Users\PC\AppData\Local\Programs\Python\Python313\python.exe src/main.py
+# Server runs on http://localhost:8000
+
+# Note: Using full Python path due to Windows alias issue
 ```
 
 ### Oracle Service (TypeScript) - Coming Soon
@@ -40,7 +46,7 @@ npm run dev
 | Service | Status | Port | Endpoints |
 |---------|--------|------|-----------|
 | API Server | ✅ Running | 3001 | `/health`, `/api` |
-| Analysis Engine | 🟡 In Progress | 8000 | TBD |
+| Analysis Engine | ✅ Running | 8000 | `/health`, `/docs`, `/analyze` |
 | Oracle Service | 🟡 Planned | 3002 | TBD |
 | Smart Contracts | 🟡 Planned | - | TBD |
 
@@ -48,9 +54,15 @@ npm run dev
 
 ### Prerequisites
 - Node.js 18+
-- Python 3.9+
+- Python 3.9+ (Note: Windows users may need to use full Python path due to Windows Store alias issue)
 - PostgreSQL
 - Git
+
+### ⚠️ Known Issues
+
+**Windows Python Alias Issue**: Windows 10/11 may redirect `python` commands to Microsoft Store. If you encounter this:
+- Use full Python path: `C:\Users\PC\AppData\Local\Programs\Python\Python313\python.exe`
+- Or disable Python app execution aliases in Windows Settings > Apps > App execution aliases
 
 ### Environment Configuration
 Each service has its own `.env.example` file. Copy to `.env` and configure:
@@ -132,4 +144,4 @@ backend/
 
 ---
 
-**Status**: 🚀 **Node.js Foundation Ready** | Next: Python FastAPI Setup
+**Status**: 🚀 **Node.js + Python Foundations Ready** | Next: Oracle Service Setup
