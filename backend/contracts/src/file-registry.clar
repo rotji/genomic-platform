@@ -1,0 +1,1 @@
+;; File registry contract
