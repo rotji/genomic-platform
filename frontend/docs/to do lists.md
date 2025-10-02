@@ -443,6 +443,66 @@
 
 ---
 
+## ⚠️ **DEVELOPMENT CHALLENGES & SOLUTIONS**
+
+### **Multi-Backend Architecture Complexity**
+
+**Challenge**: Our platform uses multiple backend services that need coordination:
+- **Node.js API Server** (Express + TypeScript + Stacks.js)
+- **Python Analysis Engine** (FastAPI + BioPython + Oracle integration)  
+- **Oracle Service** (TypeScript + External data verification)
+- **Clarity Smart Contracts** (Blockchain storage & proof generation)
+
+**Problem**: Unlike single-backend projects where you run `npm start`, this requires managing multiple services simultaneously.
+
+**Solutions Available**:
+
+#### **Option 1: Individual Services (Recommended for Development)**
+```bash
+# Terminal 1: Node.js API Server
+cd backend/api-server && npm run dev
+
+# Terminal 2: Python Analysis Engine  
+cd backend/analysis-engine && python -m uvicorn main:app --reload
+
+# Terminal 3: Oracle Service
+cd backend/oracle-service && npm run dev
+
+# Terminal 4: Smart Contracts (when needed)
+cd backend/contracts && clarinet console
+```
+
+#### **Option 2: Docker Compose (Recommended for Production)**
+```bash
+# From root directory - runs everything at once
+docker-compose up
+
+# Or run specific services
+docker-compose up api-server analysis-engine
+```
+
+#### **Option 3: Development Scripts (Simplified Workflow)**
+```bash
+# We can create scripts to run all services
+npm run dev:backend    # Runs all backend services
+npm run dev:frontend   # Runs frontend  
+npm run dev:all        # Runs everything
+```
+
+**Best Practice Approach**:
+1. **Phase 1**: Start with just Node.js API server (familiar workflow)
+2. **Phase 2**: Add Python engine when genomic analysis is needed
+3. **Phase 3**: Add Oracle service when external data verification is required
+4. **Phase 4**: Use Docker Compose for full integration testing
+
+**Development Workflow Recommendation**:
+- Start simple with individual terminals (similar to single backend experience)
+- Add services gradually as features are implemented
+- Use Docker only when all services need integration
+- Each service has clear separation of concerns
+
+---
+
 ## 📝 **NOTES (Updated for Blockchain-First Development)**
 
 - Each item integrates extensively with Stacks blockchain and oracle services
