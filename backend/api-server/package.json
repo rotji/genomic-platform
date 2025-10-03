@@ -26,6 +26,8 @@
     "morgan": "^1.10.0",
     "dotenv": "^16.3.1",
     "multer": "^1.4.5-lts.1",
+    "@supabase/supabase-js": "^2.38.0",
+    "pg": "^8.11.3",
     "@stacks/transactions": "^6.8.1",
     "@stacks/network": "^6.8.1",
     "@stacks/connect": "^7.3.0"
@@ -35,6 +37,7 @@
     "@types/cors": "^2.8.13",
     "@types/morgan": "^1.9.4",
     "@types/multer": "^1.4.7",
+    "@types/pg": "^8.10.7",
     "@types/node": "^20.4.8",
     "typescript": "^5.1.6",
     "nodemon": "^3.0.1",
