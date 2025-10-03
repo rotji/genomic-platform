@@ -6,6 +6,8 @@ import dotenv from 'dotenv';
 import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
+import crypto from 'crypto';
+import { testDatabaseConnection, FileDatabase, FileMetadata } from './database';
 
 // Load environment variables
 dotenv.config();
@@ -67,8 +69,8 @@ app.get('/health', (req, res) => {
   });
 });
 
-// File upload endpoint
-app.post('/api/files/upload', upload.single('file'), (req, res) => {
+// File upload endpoint with database integration
+app.post('/api/files/upload', upload.single('file'), async (req, res) => {
   try {
     if (!req.file) {
       return res.status(400).json({
@@ -77,32 +79,45 @@ app.post('/api/files/upload', upload.single('file'), (req, res) => {
       });
     }
 
-    // Basic file metadata
-    const fileMetadata = {
-      id: Date.now().toString(),
-      originalName: req.file.originalname,
-      filename: req.file.filename,
-      size: req.file.size,
-      mimetype: req.file.mimetype,
-      uploadedAt: new Date().toISOString(),
-      path: req.file.path
+    // Generate file hash for integrity checking
+    const fileBuffer = fs.readFileSync(req.file.path);
+    const fileHash = crypto.createHash('sha256').update(fileBuffer).digest('hex');
+    
+    // Extract file extension
+    const fileExtension = path.extname(req.file.originalname).toLowerCase();
+
+    // Prepare file metadata for database
+    const fileMetadata: FileMetadata = {
+      original_name: req.file.originalname,
+      stored_filename: req.file.filename,
+      file_path: req.file.path,
+      file_size: req.file.size,
+      mime_type: req.file.mimetype,
+      file_extension: fileExtension,
+      file_hash: fileHash,
+      upload_status: 'completed'
     };
 
-    // TODO: In future iterations, we'll add:
-    // - Database storage of file metadata
-    // - Blockchain registration
-    // - File content analysis
+    // Save file metadata to database
+    const dbResult = await FileDatabase.saveFileMetadata(fileMetadata);
     
+    if (!dbResult.success) {
+      console.error('Failed to save file metadata:', dbResult.error);
+      // File uploaded but database save failed - still return success but log error
+    }
+
     res.json({
       success: true,
       message: 'File uploaded successfully',
       file: {
-        id: fileMetadata.id,
-        name: fileMetadata.originalName,
-        size: fileMetadata.size,
-        type: fileMetadata.mimetype,
-        uploadedAt: fileMetadata.uploadedAt,
-        status: 'completed'
+        id: dbResult.data?.id || Date.now().toString(),
+        name: req.file.originalname,
+        size: req.file.size,
+        type: req.file.mimetype,
+        hash: fileHash,
+        uploadedAt: new Date().toISOString(),
+        status: 'completed',
+        databaseSaved: dbResult.success
       }
     });
 
@@ -130,9 +145,18 @@ app.get('/api', (req, res) => {
   });
 });
 
-// Start server
-app.listen(PORT, () => {
+// Start server with database connection test
+app.listen(PORT, async () => {
   console.log(`🚀 API Server running on http://localhost:${PORT}`);
   console.log(`📊 Health check: http://localhost:${PORT}/health`);
   console.log(`📋 API info: http://localhost:${PORT}/api`);
+  
+  // Test database connection
+  console.log('🔍 Testing database connection...');
+  const dbConnected = await testDatabaseConnection();
+  if (dbConnected) {
+    console.log('✅ Database ready for operations');
+  } else {
+    console.log('❌ Database connection failed - check your Supabase configuration');
+  }
 });
