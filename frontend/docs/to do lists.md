@@ -552,6 +552,36 @@ C:\Users\PC\AppData\Local\Programs\Python\Python313\python.exe src/main.py
 
 **Temporary Solution**: Using full Python path for all commands until alias issue is resolved.
 
+### **System PATH Configuration Challenge**
+
+**Challenge**: Multiple development tools not accessible from command line on new Windows laptop setup.
+
+**Impact**: 
+- Python requires full path: `C:\Users\PC\AppData\Local\Programs\Python\Python313\python.exe`
+- Clarinet requires full path: `"C:\Program Files\clarinet\bin\clarinet.exe"`
+- Development workflow less convenient without standard command shortcuts
+
+**Root Cause**: System PATH environment variable not configured for installed development tools.
+
+**Solutions Attempted**:
+1. **Automated PATH Fix Script**: Created PowerShell script requiring Administrator privileges
+2. **Manual PATH Configuration**: Requires system environment variable modification
+3. **Alternative Workarounds**: Created batch files for easy service execution
+
+**Current Workaround**: 
+- ✅ **Batch File Solution**: `start-all-services.bat` runs all services with full paths
+- ✅ **Individual Service Runners**: `run-oracle-service.bat`, `run-analysis-engine.bat`
+- ✅ **Full Path Commands**: Development possible with explicit paths
+
+**Recommended Solutions**:
+1. **Administrator PATH Fix**: Run `setx PATH "%PATH%;C:\Users\PC\AppData\Local\Programs\Python\Python313" /M` as Administrator
+2. **Manual System Settings**: Add paths via Windows System Properties → Environment Variables
+3. **Continue With Workarounds**: Use batch files for convenience (no impact on functionality)
+
+**Priority**: 🟡 **Low** - All functionality works with workarounds, PATH is convenience only
+
+**Status**: 🔄 **Documented with working alternatives**
+
 **Impact**: Longer commands but fully functional Python development environment.
 
 **Status**: ⚠️ **Unresolved** - Python works but requires full path commands
