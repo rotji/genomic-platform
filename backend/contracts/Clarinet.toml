@@ -1,0 +1,82 @@
+[project]
+name = "genomic-platform"
+description = "Blockchain-first genomic analysis platform with immutable data storage and oracle verification"
+authors = ["Genomic Platform Team"]
+telemetry = true
+cache_dir = "./.clarinet"
+requirements = []
+boot_contracts = []
+
+[contracts.genomic-data-storage]
+path = "contracts/genomic-data-storage.clar"
+clarity_version = 2
+epoch = 2.4
+
+[contracts.oracle-verification]
+path = "contracts/oracle-verification.clar"
+clarity_version = 2  
+epoch = 2.4
+
+[repl]
+costs_version = 2
+parser_version = 2
+
+[repl.analysis]
+passes = ["check_checker"]
+
+[repl.analysis.check_checker]
+strict = false
+trusted_sender = false
+trusted_caller = false
+callee_filter = false
+
+[[repl.sessions]]
+name = "default"
+deploy_contracts = true
+show_costs = true
+
+[devnet]
+disable_bitcoin_explorer = false
+# docker_platform = "linux/amd64"  # Uncomment if on Apple Silicon
+# stacks_api_port = 3999
+# stacks_rpc_port = 20443
+# bitcoin_rpc_port = 18443
+
+[devnet.orchestrator]
+# docker_platform = "linux/amd64"  # Uncomment if on Apple Silicon
+
+[[devnet.accounts]]
+name = "deployer"
+balance = 100_000_000_000_000
+address = "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM"
+mnemonic = "twice kind fence tip hidden tilt action fragile skin nothing glory cousin green tomorrow spring wrist shed math olympic multiply hip blue scout claw"
+
+[[devnet.accounts]]
+name = "oracle1"
+balance = 10_000_000_000_000
+address = "ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5"
+mnemonic = "sell invite acquire kitten bamboo drastic jelly vivid peace spawn twice guilt pave pen trash pretty park cube fragile unaware remain midnight betray rebuild"
+
+[[devnet.accounts]]
+name = "oracle2"
+balance = 10_000_000_000_000  
+address = "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG"
+mnemonic = "hold excess usual excess ring elephant install account glad dry fragile donkey gaze humble truck breeze nation gasp vacuum limb head keep delay hospital"
+
+[[devnet.accounts]]
+name = "oracle3"
+balance = 10_000_000_000_000
+address = "ST2JHG361ZXG51QTQAVCW0LQSGTH23STD0SRS3CV7"
+mnemonic = "cycle puppy glare enroll cost improve round trend wrist mushroom prime crater oppose divert cargo room refuse ship now general pave maple gas floor"
+
+[[devnet.accounts]]
+name = "user1"
+balance = 1_000_000_000_000
+address = "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND"
+mnemonic = "board list obtain sugar park nerve fossil milk lift topic maze anger person innocent relief system melt echo twenty unusual dawn butter exercise craft"
+
+[[devnet.accounts]]
+name = "user2"
+balance = 1_000_000_000_000
+address = "ST2REHHS5J3CERCRBEPMGH7921Q6PYKAADT7JP2VB"
+mnemonic = "panel country famous cricket twice ankle outdoor angle simple clap permit float vague protect decade wish motion rescue page exclude muscle task warm plastic"
