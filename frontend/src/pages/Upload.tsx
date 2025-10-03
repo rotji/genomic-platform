@@ -1,24 +1,10 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Upload as UploadIcon, FileText, Info, X, CheckCircle, AlertCircle, Clock } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { useFileUpload } from '../hooks/useFileUpload';
+import type { UploadFileState } from '../hooks/useFileUpload';
 import styles from './Upload.module.css';
-
-interface UploadedFile {
-  id: string;
-  file: File;
-  name: string;
-  size: number;
-  type: string;
-  status: 'uploading' | 'completed' | 'error' | 'validating';
-  progress: number;
-  error?: string;
-  metadata?: {
-    sequences?: number;
-    format?: string;
-    encoding?: string;
-  };
-}
 
 const ACCEPTED_FORMATS = {
   'text/plain': ['.txt', '.fasta', '.fastq', '.fa', '.fq'],
@@ -30,7 +16,7 @@ const ACCEPTED_FORMATS = {
 const MAX_FILE_SIZE = 200 * 1024 * 1024 * 1024; // 200GB
 
 const Upload: React.FC = () => {
-  const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
+  const { uploadedFiles, uploadFile, removeFile } = useFileUpload();
 
   const validateFile = (file: File): { isValid: boolean; error?: string } => {
     // Check file size
@@ -52,37 +38,6 @@ const Upload: React.FC = () => {
     return { isValid: true };
   };
 
-  const generateFileId = (): string => {
-    return Math.random().toString(36).substr(2, 9);
-  };
-
-  const simulateUpload = (fileId: string) => {
-    const interval = setInterval(() => {
-      setUploadedFiles(prev => prev.map(file => {
-        if (file.id === fileId && file.status === 'uploading') {
-          const newProgress = Math.min(file.progress + Math.random() * 20, 100);
-          
-          if (newProgress >= 100) {
-            clearInterval(interval);
-            return {
-              ...file,
-              progress: 100,
-              status: 'completed',
-              metadata: {
-                sequences: Math.floor(Math.random() * 10000) + 1000,
-                format: file.name.split('.').pop()?.toUpperCase(),
-                encoding: 'UTF-8'
-              }
-            };
-          }
-          
-          return { ...file, progress: newProgress };
-        }
-        return file;
-      }));
-    }, 500);
-  };
-
   const onDrop = useCallback((acceptedFiles: File[], rejectedFiles: any[]) => {
     // Handle rejected files
     rejectedFiles.forEach(({ file, errors }) => {
@@ -100,24 +55,10 @@ const Upload: React.FC = () => {
         return;
       }
 
-      const fileId = generateFileId();
-      const uploadFile: UploadedFile = {
-        id: fileId,
-        file,
-        name: file.name,
-        size: file.size,
-        type: file.type,
-        status: 'uploading',
-        progress: 0,
-      };
-
-      setUploadedFiles(prev => [...prev, uploadFile]);
-      toast.success(`Started uploading ${file.name}`);
-      
-      // Simulate upload process
-      simulateUpload(fileId);
+      // Use the real upload function from our hook
+      uploadFile(file);
     });
-  }, []);
+  }, [uploadFile]);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -125,11 +66,6 @@ const Upload: React.FC = () => {
     maxSize: MAX_FILE_SIZE,
     multiple: true,
   });
-
-  const removeFile = (fileId: string) => {
-    setUploadedFiles(prev => prev.filter(file => file.id !== fileId));
-    toast.success('File removed');
-  };
 
   const formatFileSize = (bytes: number): string => {
     if (bytes === 0) return '0 Bytes';
@@ -139,7 +75,7 @@ const Upload: React.FC = () => {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
   };
 
-  const getStatusIcon = (status: UploadedFile['status']) => {
+  const getStatusIcon = (status: UploadFileState['status']) => {
     switch (status) {
       case 'uploading':
         return <Clock className={styles.statusIcon} />;
@@ -198,9 +134,14 @@ const Upload: React.FC = () => {
                       </div>
                       <div className={styles.fileDetails}>
                         <span className={styles.fileSize}>{formatFileSize(file.size)}</span>
-                        {file.metadata && (
+                        {file.status === 'completed' && file.uploadedData && (
                           <span className={styles.fileFormat}>
-                            {file.metadata.format} • {file.metadata.sequences} sequences
+                            {file.type} • Uploaded at {new Date(file.uploadedData.uploadedAt).toLocaleTimeString()}
+                          </span>
+                        )}
+                        {file.status === 'error' && file.error && (
+                          <span className={styles.fileError}>
+                            Error: {file.error}
                           </span>
                         )}
                       </div>
