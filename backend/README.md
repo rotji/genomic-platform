@@ -34,21 +34,28 @@ C:\Users\PC\AppData\Local\Programs\Python\Python313\python.exe src/main.py
 # Note: Using full Python path due to Windows alias issue
 ```
 
-### Oracle Service (TypeScript) - Coming Soon
+### Oracle Service (TypeScript) ✅ Ready & Secured
 ```bash
 cd oracle-service
 npm install
 npm run dev
+# Server runs on http://localhost:3002
+
+# Test endpoints:
+# GET /health - Service health check
+# GET /gene/BRCA1 - Gene verification 
+# GET /variant/17/43094410/G - Variant verification
+# GET /blockchain/health - Blockchain connectivity
 ```
 
 ## 📊 Service Status
 
-| Service | Status | Port | Endpoints |
-|---------|--------|------|-----------|
-| API Server | ✅ Running | 3001 | `/health`, `/api` |
-| Analysis Engine | ✅ Running | 8000 | `/health`, `/docs`, `/analyze` |
-| Oracle Service | 🟡 Planned | 3002 | TBD |
-| Smart Contracts | 🟡 Planned | - | TBD |
+| Service | Status | Port | Endpoints | Security |
+|---------|--------|------|-----------|----------|
+| API Server | ✅ Running | 3001 | `/health`, `/api` | ✅ Basic |
+| Analysis Engine | ✅ Running | 8000 | `/health`, `/docs`, `/analyze` | ✅ Basic |
+| Oracle Service | ✅ Running | 3002 | `/health`, `/gene`, `/variant`, `/blockchain` | ✅ Enhanced |
+| Smart Contracts | 🟡 Planned | - | TBD | 🟡 Pending |
 
 ## 🔧 Development Setup
 
@@ -98,6 +105,15 @@ docker-compose up
 - **Environment Variables**: Sensitive data in `.env` files (not tracked by git)
 - **CORS Configuration**: Proper cross-origin resource sharing
 - **Helmet Security**: HTTP headers protection
+- **Input Validation**: Zod schemas for genomic data validation
+- **Rate Limiting**: Tiered protection against DDoS attacks
+- **Malicious Content Detection**: Real-time scanning for prompt injection and code injection
+- **Content Sanitization**: DOMPurify for HTML/script sanitization
+- **Blockchain Verification**: Immutable data storage on Stacks network
+- **Oracle Verification**: Multi-source validation against NCBI, ClinVar, Ensembl
+- **Security Logging**: Comprehensive request monitoring and threat detection
+
+For detailed security documentation, see [SECURITY.md](./SECURITY.md)
 - **Request Logging**: Morgan middleware for request tracking
 - **Stacks.js Integration**: Blockchain-native authentication ready
 
