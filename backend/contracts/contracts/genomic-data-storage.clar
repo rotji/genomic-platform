@@ -1,4 +1,4 @@
-;; 🧬 Genomic Platform - Data Storage Contract
+;; Genomic Platform - Data Storage Contract
 ;; Immutable storage and verification of genomic analysis results
 
 ;; Contract constants

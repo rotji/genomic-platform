@@ -1,4 +1,4 @@
-;; 🔮 Genomic Platform - Oracle Verification Contract
+;; Genomic Platform - Oracle Verification Contract
 ;; External data source verification and consensus management
 
 ;; Contract constants

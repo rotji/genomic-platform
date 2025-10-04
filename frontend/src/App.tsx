@@ -9,6 +9,7 @@ import Docs from './pages/Docs';
 import FAQ from './pages/FAQ';
 import Dashboard from './pages/Dashboard';
 import AdminDashboard from './pages/AdminDashboard';
+import BlockchainPage from './pages/BlockchainPage';
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
 import './App.css';
@@ -26,6 +27,7 @@ function App() {
             <Route path="admin" element={<AdminDashboard />} />
             <Route path="upload" element={<Upload />} />
             <Route path="results" element={<Results />} />
+            <Route path="blockchain" element={<BlockchainPage />} />
             <Route path="docs" element={<Docs />} />
             <Route path="faq" element={<FAQ />} />
           </Route>
