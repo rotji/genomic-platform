@@ -14,6 +14,7 @@ const Navbar: React.FC = () => {
     { path: '/', label: 'Home' },
     { path: '/upload', label: 'Upload DNA/RNA' },
     { path: '/results', label: 'Results' },
+    { path: '/blockchain', label: 'Blockchain' },
   ];
 
   // Menu items that go in the hamburger dropdown
