@@ -1,3 +1,6 @@
+
+> **Note:** This document follows the principles in [system design phylosophy.md](system%20design%20phylosophy.md).
+
 Perfect — we’ll **integrate NFTs directly into your Genomic Platform** as a core feature, not an afterthought.
 
 Here’s how we’ll proceed step by step:

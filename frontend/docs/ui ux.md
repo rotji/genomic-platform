@@ -1,3 +1,6 @@
+
+> **Note:** This document follows the principles in [system design phylosophy.md](system%20design%20phylosophy.md).
+
 Perfect 👌 — you’re asking us to **document the UI/UX design flow** of your genomic platform (frontend client experience) before coding. I’ll capture it as a **numbered roadmap of user interface elements and flows**, showing how the user journeys will look. This will guide the frontend (Vite + React + TS + CSS Modules) work later.
 
 ---

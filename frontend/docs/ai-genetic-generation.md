@@ -1,3 +1,6 @@
+
+> **Note:** This document follows the principles in [system design phylosophy.md](system%20design%20phylosophy.md).
+
 # 🧬🤖 AI Genetic Code Generation - Advanced Platform Feature
 
 **Advanced Feature**: AI-Powered Genetic Design and Synthesis Integration  

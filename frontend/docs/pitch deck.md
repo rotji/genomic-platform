@@ -1,3 +1,6 @@
+
+> **Note:** This document follows the principles in [system design phylosophy.md](system%20design%20phylosophy.md).
+
 ✅ Great — I’ll now write the **full pitch deck content**, slide by slide, in FINAL form — no placeholders, no instructions, just polished content you can use directly.
 
 Title: **Genomic Platform**

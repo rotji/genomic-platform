@@ -1,4 +1,34 @@
+
 # 🧬 Genomic Platform Frontend
+
+## 🧠 Problem Statement
+
+Democratize secure, AI-powered genomic analysis for clinics, researchers, and communities—combining modern web, AI, and blockchain for data integrity and accessibility.
+
+**Non-Goals:**
+- Not a replacement for clinical diagnosis or medical advice
+- Not a generic file storage or blockchain explorer
+- Not a platform for unvalidated AI models
+
+## ⚖️ Trade-Offs
+
+- **Stacks blockchain**: Ensures data integrity, but adds onboarding friction for non-Web3 users.
+- **React/TypeScript**: Modern, maintainable, but requires upskilling for legacy JS devs.
+- **AI integration**: Enables advanced features, but increases cost and complexity.
+
+## 🛡️ Failure Scenarios & Resilience
+
+- **API/server down**: UI shows maintenance mode or retry option.
+- **File upload error**: User receives clear error, can retry; no partial data stored.
+- **Wallet/contract error**: User notified, can retry or continue without blockchain features.
+- **AI service unavailable**: UI disables AI features, falls back to classical analysis.
+
+## 🔄 Data Lifecycle & Observability
+
+- **Data lifecycle**: File upload → validation → analysis → result display → blockchain proof → user download/deletion.
+- **Observability**: All major actions (upload, analysis, contract call, error) are logged for monitoring.
+- **Performance/cost**: File size and analysis time are capped; cost modeling is ongoing for AI and blockchain operations.
+
 
 A comprehensive Web3-native genomic analysis platform that democratizes DNA/RNA analysis with AI-powered genetic code generation capabilities. Built for hospitals, researchers, biotechnology companies, and communities worldwide.
 

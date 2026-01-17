@@ -1,3 +1,6 @@
+
+> **Note:** This document follows the principles in [system design phylosophy.md](system%20design%20phylosophy.md).
+
 Perfect 👌 — thanks for clarifying. Let’s reset and **rebuild the theoretical documentation**, but now fully shaped around **Stacks Ascend requirements**:
 
 * **Clarity programming language** for smart contracts.

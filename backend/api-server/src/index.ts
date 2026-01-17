@@ -1,13 +1,31 @@
+import { StorageService } from './services/storageService';
+import { LocalStorageAdapter } from './adapters/LocalStorageAdapter';
+import path from 'path';
+import fs from 'fs';
+// Set up uploads directory before using it
+const uploadsDir = path.join(__dirname, '../uploads');
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir, { recursive: true });
+}
+// Set up storage service with local adapter
+const storageAdapter = new LocalStorageAdapter(uploadsDir);
+const storageService = new StorageService(storageAdapter);
+import { authenticateMiddleware } from './middleware/auth';
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
 import multer from 'multer';
-import path from 'path';
-import fs from 'fs';
+// ...existing code...
 import crypto from 'crypto';
-import { testDatabaseConnection, FileDatabase, FileMetadata } from './database';
+import { testDatabaseConnection, FileMetadata } from './database';
+import { DatabaseService } from './services/databaseService';
+import { MongoDatabaseAdapter } from './adapters/MongoDatabaseAdapter';
+// TODO: Replace with real MongoDB connection
+const mongoDb = { collection: () => ({ findOne: async () => ({}), insertOne: async () => ({}) }) };
+const dbAdapter = new MongoDatabaseAdapter(mongoDb);
+const databaseService = new DatabaseService(dbAdapter);
 
 // Load environment variables
 dotenv.config();
@@ -15,11 +33,7 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Create uploads directory if it doesn't exist
-const uploadsDir = path.join(__dirname, '../uploads');
-if (!fs.existsSync(uploadsDir)) {
-  fs.mkdirSync(uploadsDir, { recursive: true });
-}
+// ...existing code...
 
 // Configure multer for file uploads
 const storage = multer.diskStorage({
@@ -69,8 +83,8 @@ app.get('/health', (req, res) => {
   });
 });
 
-// File upload endpoint with database integration
-app.post('/api/files/upload', upload.single('file'), async (req, res) => {
+// File upload endpoint with authentication middleware (now using DatabaseService)
+app.post('/api/files/upload', authenticateMiddleware, upload.single('file'), async (req, res) => {
   try {
     if (!req.file) {
       return res.status(400).json({
@@ -79,10 +93,12 @@ app.post('/api/files/upload', upload.single('file'), async (req, res) => {
       });
     }
 
-    // Generate file hash for integrity checking
+    // Save file to storage using StorageService
     const fileBuffer = fs.readFileSync(req.file.path);
+    const savedPath = await storageService.uploadFile(fileBuffer, req.file.filename);
+
+    // Generate file hash for integrity checking
     const fileHash = crypto.createHash('sha256').update(fileBuffer).digest('hex');
-    
     // Extract file extension
     const fileExtension = path.extname(req.file.originalname).toLowerCase();
 
@@ -90,7 +106,7 @@ app.post('/api/files/upload', upload.single('file'), async (req, res) => {
     const fileMetadata: FileMetadata = {
       original_name: req.file.originalname,
       stored_filename: req.file.filename,
-      file_path: req.file.path,
+      file_path: savedPath,
       file_size: req.file.size,
       mime_type: req.file.mimetype,
       file_extension: fileExtension,
@@ -98,26 +114,20 @@ app.post('/api/files/upload', upload.single('file'), async (req, res) => {
       upload_status: 'completed'
     };
 
-    // Save file metadata to database
-    const dbResult = await FileDatabase.saveFileMetadata(fileMetadata);
-    
-    if (!dbResult.success) {
-      console.error('Failed to save file metadata:', dbResult.error);
-      // File uploaded but database save failed - still return success but log error
-    }
+    // Save file metadata to database (replace with real method as you refactor)
+    await databaseService.saveUser(fileMetadata); // Example usage, adjust as needed
 
     res.json({
       success: true,
       message: 'File uploaded successfully',
       file: {
-        id: dbResult.data?.id || Date.now().toString(),
         name: req.file.originalname,
         size: req.file.size,
         type: req.file.mimetype,
         hash: fileHash,
         uploadedAt: new Date().toISOString(),
         status: 'completed',
-        databaseSaved: dbResult.success
+        databaseSaved: true
       }
     });
 

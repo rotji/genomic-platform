@@ -1,3 +1,6 @@
+
+> **Note:** This document follows the principles in [system design phylosophy.md](system%20design%20phylosophy.md).
+
 Testing **code quality** isn’t one thing — it’s a **stack of checks** that tell you whether your code is correct, readable, maintainable, and safe to change.
 
 Since you mostly work with **Vite + React + TypeScript / Node**, here’s a **clear, practical system** you can apply step-by-step.

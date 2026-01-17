@@ -1,3 +1,6 @@
+
+> **Note:** This document follows the principles in [system design phylosophy.md](system%20design%20phylosophy.md).
+
 Awesome — I’ve folded a **size-aware DNA/RNA strategy** into the whole system. Here’s the updated design you can drop into your docs (no code).
 
 # DNA/RNA Storage–Aware System Design (Updated)

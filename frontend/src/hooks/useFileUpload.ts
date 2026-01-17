@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react';
-import { apiClient } from '../utils/api';
-import type { UploadedFileResponse } from '../utils/api';
+import type { UploadedFileResponse } from '../types/api';
+import type { IApiService } from '../services/IApiService';
+import { apiService } from '../services/apiService';
 import toast from 'react-hot-toast';
 
 export interface UploadFileState {
@@ -23,7 +24,7 @@ interface UseFileUploadReturn {
   clearAllFiles: () => void;
 }
 
-export const useFileUpload = (): UseFileUploadReturn => {
+export const useFileUpload = (api: IApiService = apiService): UseFileUploadReturn => {
   const [uploadedFiles, setUploadedFiles] = useState<UploadFileState[]>([]);
   const [isUploading, setIsUploading] = useState(false);
 
@@ -51,13 +52,8 @@ export const useFileUpload = (): UseFileUploadReturn => {
 
     try {
       // Start upload with progress tracking
-      const result = await apiClient.uploadFile(file, (progress) => {
-        setUploadedFiles(prev => prev.map(f => 
-          f.id === fileId 
-            ? { ...f, progress }
-            : f
-        ));
-      });
+      const result = await api.uploadFile(file);
+      // If you want progress tracking, extend IApiService and HttpApiService accordingly
 
       if (result.success && result.data) {
         // Update file state with successful upload

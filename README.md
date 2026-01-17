@@ -1,4 +1,36 @@
+
 # 🧬 Genomic Platform
+
+## 🧠 Problem Statement
+
+Enable secure, accessible, and verifiable genomic analysis for clinics, researchers, and communities worldwide—combining classical bioinformatics, AI, and blockchain for data integrity and democratization.
+
+**Non-Goals:**
+- Not a replacement for clinical diagnosis or medical advice
+- Not a general-purpose cloud storage or generic blockchain explorer
+- Not a platform for unvalidated or unreviewed AI models
+
+## ⚖️ Trade-Offs
+
+- **Stacks blockchain**: Chosen for data integrity and smart contracts, but increases onboarding complexity for non-Web3 users.
+- **Supabase/PostgreSQL**: Fast to set up, but may require migration for enterprise scale.
+- **React/TypeScript**: Modern and maintainable, but requires upskilling for legacy JS devs.
+- **AI integration**: Powerful, but increases operational cost and regulatory complexity.
+
+## 🛡️ Failure Scenarios & Resilience
+
+- **Database outage**: Platform degrades to read-only or maintenance mode; user notified.
+- **Blockchain/network failure**: File uploads and analysis continue, but on-chain proofs are queued/retried.
+- **File upload error**: User receives clear error, can retry safely; no partial data stored.
+- **AI service unavailable**: Analysis jobs are queued or fallback to classical methods.
+- **Security incident**: All sensitive keys are rotated, and incident response is documented.
+
+## 🔄 Data Lifecycle & Observability
+
+- **Data lifecycle**: File upload → validation → analysis → result storage → blockchain proof → user download/deletion.
+- **Observability**: All major actions are logged (file upload, analysis, contract call, error). Monitoring is planned for production.
+- **Performance/cost**: File size and analysis time are capped; cost modeling is ongoing for AI and blockchain operations.
+
 
 A **complete Web3 genomic analysis platform** with blockchain-based data integrity, featuring React frontend, Node.js backend, PostgreSQL database, and Stacks smart contracts.
 

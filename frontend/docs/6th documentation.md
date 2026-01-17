@@ -1,3 +1,6 @@
+
+> **Note:** This document follows the principles in [system design phylosophy.md](system%20design%20phylosophy.md).
+
 Great — now we’re designing the **entire technical workflow** for the genomic platform as a **layered architecture** (Frontend ↔ Backend ↔ Off-chain Python ↔ Database ↔ On-chain Clarity smart contracts).
 
 We’ll group everything into **Basic**, **Medium**, and **Complex**, so you see how the project grows over time without code yet.

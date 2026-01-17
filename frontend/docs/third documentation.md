@@ -1,3 +1,6 @@
+
+> **Note:** This document follows the principles in [system design phylosophy.md](system%20design%20phylosophy.md).
+
 Perfect 👌 — now we switch gears into the **technical roadmap**. Since you don’t want actual code yet, I’ll give you the **big context / blueprint** of how the system should evolve across stages. This will tie together:
 
 * **Frontend (Vite + React + TS + module.css + stacks.js)**

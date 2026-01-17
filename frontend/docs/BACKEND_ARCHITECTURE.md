@@ -1,3 +1,6 @@
+
+> **Note:** This document follows the principles in [system design phylosophy.md](system%20design%20phylosophy.md).
+
 # 🏗️ Backend Architecture Documentation
 
 ## Overview

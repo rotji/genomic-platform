@@ -1,3 +1,6 @@
+
+> **Note:** This document follows the principles in [system design phylosophy.md](system%20design%20phylosophy.md).
+
 Perfect 👍 — let’s now embed the **full expanded roadmap (8 phases)** into the documentation structure we drafted earlier.
 
 ---

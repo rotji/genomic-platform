@@ -1,3 +1,6 @@
+
+> **Note:** This document follows the principles in [system design phylosophy.md](system%20design%20phylosophy.md).
+
 # Frequently Asked Questions (FAQ)
 
 ## Platform Overview & Problem Solving

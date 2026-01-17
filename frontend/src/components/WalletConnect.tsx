@@ -1,12 +1,6 @@
 import React, { useState } from 'react';
-import { showConnect, type FinishedAuthData } from '@stacks/connect';
-import { StacksTestnet } from '@stacks/network';
-import { 
-  stringAsciiCV, 
-  makeContractCall,
-  broadcastTransaction,
-  AnchorMode
-} from '@stacks/transactions';
+import { walletService } from '../services/walletService';
+import { type FinishedAuthData } from '@stacks/connect';
 import styles from './WalletConnect.module.css';
 
 interface WalletState {
@@ -35,9 +29,9 @@ const WalletConnect: React.FC = () => {
         },
         redirectTo: '/',
         onFinish: (data: FinishedAuthData) => {
-          console.log('Wallet connected:', data);
-          setWalletState({
-            isConnected: true,
+        isConnected: walletService.isConnected(),
+        userAddress: walletService.getUserAddress(),
+        network: walletService.getNetwork()
             userAddress: data.userSession.loadUserData().profile.stxAddress.testnet,
             network: 'testnet'
           });
@@ -46,26 +40,12 @@ const WalletConnect: React.FC = () => {
         onCancel: () => {
           console.log('Wallet connection cancelled');
           setIsConnecting(false);
-        }
-      });
-    } catch (error) {
-      console.error('Failed to connect wallet:', error);
-      setIsConnecting(false);
-    }
-  };
-
-  const disconnectWallet = () => {
-    setWalletState({
-      isConnected: false,
-      userAddress: null,
-      network: 'testnet'
-    });
-    // Clear any stored session data
-    localStorage.removeItem('blockstack-session');
-  };
-
-  // Example function to interact with our genomic data storage contract
-  const storeAnalysisResult = async (
+          await walletService.connect();
+          setWalletState({
+            isConnected: walletService.isConnected(),
+            userAddress: walletService.getUserAddress(),
+            network: walletService.getNetwork()
+          });
     analysisId: string,
     fileHash: string,
     resultsHash: string,
@@ -74,13 +54,12 @@ const WalletConnect: React.FC = () => {
   ) => {
     if (!walletState.isConnected || !walletState.userAddress) {
       alert('Please connect your wallet first');
-      return;
-    }
-
-    try {
-      const network = new StacksTestnet();
-      
-      // This would be the actual contract address once deployed
+        walletService.disconnect();
+        setWalletState({
+          isConnected: walletService.isConnected(),
+          userAddress: walletService.getUserAddress(),
+          network: walletService.getNetwork()
+        });
       const contractAddress = 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM';
       const contractName = 'genomic-data-storage';
       
@@ -96,28 +75,17 @@ const WalletConnect: React.FC = () => {
           stringAsciiCV(metadata)
         ],
         senderKey: walletState.userAddress,
-        network,
-        anchorMode: AnchorMode.Any,
-      };
-
-      const transaction = await makeContractCall(txOptions);
-      const broadcastResponse = await broadcastTransaction(transaction, network);
-      
-      setLastTransaction(broadcastResponse.txid);
-      console.log('Transaction broadcasted:', broadcastResponse);
-      
-    } catch (error) {
-      console.error('Failed to store analysis result:', error);
-      alert('Failed to store analysis result on blockchain');
-    }
-  };
-
-  return (
-    <div className={styles.walletConnectContainer}>
-      <div className={styles.walletStatus}>
-        <h3>🦄 Stacks Wallet Connection</h3>
-        
-        {!walletState.isConnected ? (
+          const txid = await walletService.storeAnalysisResult(
+            analysisId,
+            fileHash,
+            resultsHash,
+            analysisType,
+            metadata
+          );
+          setLastTransaction(txid);
+          if (txid) {
+            console.log('Transaction broadcasted:', txid);
+          }
           <div className={styles.connectSection}>
             <p>Connect your Stacks wallet to interact with the blockchain</p>
             <button 

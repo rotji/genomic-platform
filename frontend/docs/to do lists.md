@@ -1,3 +1,6 @@
+
+> **Note:** This document follows the principles in [system design phylosophy.md](system%20design%20phylosophy.md).
+
 # 📋 Genomic Platform - Complete Build Todo Lists
 
 **Project**: Unified Genomic & Healthcare Platform with Stacks + Clarity Integration  

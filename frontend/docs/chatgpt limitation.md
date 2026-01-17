@@ -1,3 +1,6 @@
+
+> **Note:** This document follows the principles in [system design phylosophy.md](system%20design%20phylosophy.md).
+
 That’s a fair concern — but here’s the **truth** in simple terms:
 
 ✅ **ChatGPT can explain DNA — it cannot run a full DNA/RNA analysis platform.**

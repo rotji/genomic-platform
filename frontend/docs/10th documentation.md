@@ -1,3 +1,6 @@
+
+> **Note:** This document follows the principles in [system design phylosophy.md](system%20design%20phylosophy.md).
+
 Absolutely — you’re very correct. Most people don’t understand the value of DNA/RNA analysis until it’s explained in **real-world stories**, not scientific language.
 
 Below are **story-based explanations** for each use case, written so that anyone — investor, founder, student, or normal user — can understand **why the platform matters** and **what problems it solves**.

@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
 import type { User, SignUpData, SignInData } from '../types/auth';
+import { userStorage } from '../services/userStorage';
 
 interface AuthContextType {
   user: User | null;
@@ -35,13 +36,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   // Check if user is already logged in on app start
   useEffect(() => {
-    const storedUser = localStorage.getItem('user');
+    const storedUser = userStorage.getUser();
     if (storedUser) {
-      try {
-        setUser(JSON.parse(storedUser));
-      } catch {
-        localStorage.removeItem('user');
-      }
+      setUser(storedUser);
     }
     setIsLoading(false);
   }, []);
@@ -70,7 +67,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       };
 
       setUser(newUser);
-      localStorage.setItem('user', JSON.stringify(newUser));
+      userStorage.setUser(newUser);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Sign up failed');
       throw err;
@@ -94,7 +91,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       };
 
       setUser(mockUser);
-      localStorage.setItem('user', JSON.stringify(mockUser));
+      userStorage.setUser(mockUser);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Sign in failed');
       throw err;
@@ -105,7 +102,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const signOut = () => {
     setUser(null);
-    localStorage.removeItem('user');
+    userStorage.removeUser();
     setError(null);
   };
 

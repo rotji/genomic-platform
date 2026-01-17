@@ -1,3 +1,6 @@
+
+> **Note:** This document follows the principles in [system design phylosophy.md](system%20design%20phylosophy.md).
+
 Perfect ✅ You want a **big-picture codebase scaffold**: not real logic, but **placeholder files + stub functions + summary of interactions** across **Frontend (Vite React TS)**, **Backend (Node/Express TS)**, **Python services**, **Database**, and **Smart Contracts (Clarity)**.
 
 This way, we capture **everything contextually** and show how they interact.

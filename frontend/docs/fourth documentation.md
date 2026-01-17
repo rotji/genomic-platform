@@ -1,3 +1,6 @@
+
+> **Note:** This document follows the principles in [system design phylosophy.md](system%20design%20phylosophy.md).
+
 Perfect ✅ — let’s now design the **giant unified file structure** for your genomic Web3 platform, organized into **Simple → Medium → Complex** stages.
 
 This way, you can start light (just the core files), then evolve step by step into the full-blown platform with frontend + backend + Python pipelines + Clarity + Oracle.

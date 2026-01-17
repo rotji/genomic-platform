@@ -1,3 +1,6 @@
+
+> **Note:** This document follows the principles in [system design phylosophy.md](system%20design%20phylosophy.md).
+
 Great — below is a focused, practical **Clarity smart-contract design spec** for your platform (no code). I’ll list the contracts you’ll need, what each is responsible for, the key state they hold, the high-level functions they expose, the access model/roles, how they interact with oracles & off-chain systems, testing & deployment notes, and security & compliance considerations.
 
 Use this as the definitive blueprint for writing Clarity contracts later (or handing to a Clarity developer).

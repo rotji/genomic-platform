@@ -1,3 +1,6 @@
+
+> **Note:** This document follows the principles in [system design phylosophy.md](system%20design%20phylosophy.md).
+
 # 🧬 Genomic Phenotyping & Genotyping - Platform Enhancement Concept
 
 **Document Purpose**: This documentation captures the concepts of genomic phenotyping and genotyping as potential future enhancements to the Genomic Platform.
