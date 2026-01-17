@@ -1,0 +1,62 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# TypeScript
+*.tsbuildinfo
+
+# Build outputs
+dist/
+build/
+coverage/
+
+# Environment files
+.env
+.env.*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# VSCode
+.vscode/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+
+# Logs
+*.log
+
+# Misc
+uploads/
+frontend/public/_redirects
+
+# Ignore local data
+*.local
+
+# Ignore test outputs
+test-output/
+
+# Ignore IDE settings
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Ignore contract build artifacts
+backend/contracts/deployments/
+backend/contracts/settings/
+backend/contracts/tests/
+
+# Ignore generated docs
+frontend/docs/*.html
