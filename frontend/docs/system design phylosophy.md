@@ -3029,3 +3029,36 @@ If you want next, we can:
 * Design a **project scoring system (0–100 architecture health)**
 
 Just say the next step.
+Here are common tools for deeper audits and automated checks in a professional codebase:
+
+Test Coverage
+
+Jest, Vitest, Mocha (JavaScript/TypeScript)
+Pytest, Coverage.py (Python)
+Reports: Show which code is tested and what’s missing
+Security
+
+npm audit, yarn audit (JS/TS dependency vulnerabilities)
+Snyk, Dependabot (automated vulnerability scanning)
+Bandit (Python security linter)
+ESLint security plugins
+Architecture & Code Quality
+
+ESLint (JS/TS code quality, anti-patterns)
+SonarQube (comprehensive code quality and maintainability)
+TypeScript compiler (type safety)
+Prettier (code formatting consistency)
+Madge (dependency graph visualization)
+Documentation & API
+
+Swagger/OpenAPI (API documentation and validation)
+Typedoc (TypeScript code documentation)
+Docstring checkers (Python)
+CI/CD Automation
+
+GitHub Actions, GitLab CI, Jenkins (run tests, lint, coverage, security checks on every push)
+Manual Reviews
+
+Code reviews (peer review for architecture, logic, and standards)
+Security audits (manual review of sensitive flows)
+These tools, combined with your checklists, help ensure your codebase is robust, secure, and maintainable.
