@@ -37,12 +37,12 @@ Write-Host ""
 Write-Host "🐍 Fixing Python PATH..." -ForegroundColor Yellow
 
 $pythonPaths = @(
-    "C:\Users\PC\AppData\Local\Programs\Python\Python313",
-    "C:\Users\PC\AppData\Local\Programs\Python\Python313\Scripts",
-    "C:\Python313", 
-    "C:\Python313\Scripts",
-    "C:\Program Files\Python313",
-    "C:\Program Files\Python313\Scripts"
+    "C:\Users\PC\AppData\Local\Programs\Python\Python312",
+    "C:\Users\PC\AppData\Local\Programs\Python\Python312\Scripts",
+    "C:\Python312", 
+    "C:\Python312\Scripts",
+    "C:\Program Files\Python312",
+    "C:\Program Files\Python312\Scripts"
 )
 
 foreach ($pythonPath in $pythonPaths) {
@@ -169,7 +169,7 @@ $analysisEngineScript = @"
 @echo off
 echo 🐍 Starting Genomic Analysis Engine...
 cd /d "C:\Users\PC\Desktop\genomic-platform\backend\analysis-engine"
-C:\Users\PC\AppData\Local\Programs\Python\Python313\python.exe src\main.py
+python src\main.py
 pause
 "@
 
@@ -197,7 +197,7 @@ echo.
 start "API Server" cmd /k "cd /d C:\Users\PC\Desktop\genomic-platform\backend\api-server && npm run dev"
 timeout /t 3 /nobreak > nul
 
-start "Analysis Engine" cmd /k "cd /d C:\Users\PC\Desktop\genomic-platform\backend\analysis-engine && C:\Users\PC\AppData\Local\Programs\Python\Python313\python.exe src\main.py"
+start "Analysis Engine" cmd /k "cd /d C:\Users\PC\Desktop\genomic-platform\backend\analysis-engine && python src\main.py"
 timeout /t 3 /nobreak > nul
 
 start "Oracle Service" cmd /k "cd /d C:\Users\PC\Desktop\genomic-platform\backend\oracle-service && npm run dev"
