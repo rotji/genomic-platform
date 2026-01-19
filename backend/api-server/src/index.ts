@@ -2,6 +2,7 @@ import { StorageService } from './services/storageService';
 import { LocalStorageAdapter } from './adapters/LocalStorageAdapter';
 import path from 'path';
 import fs from 'fs';
+import axios from 'axios';
 // Set up uploads directory before using it
 const uploadsDir = path.join(__dirname, '../uploads');
 if (!fs.existsSync(uploadsDir)) {
@@ -67,7 +68,10 @@ const upload = multer({
 
 // Middleware
 app.use(helmet());
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5173', // Frontend URL
+  credentials: true
+}));
 app.use(morgan('combined'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -83,8 +87,8 @@ app.get('/health', (req, res) => {
   });
 });
 
-// File upload endpoint with authentication middleware (now using DatabaseService)
-app.post('/api/files/upload', authenticateMiddleware, upload.single('file'), async (req, res) => {
+// File upload endpoint (no authentication middleware for prototyping)
+app.post('/api/files/upload', upload.single('file'), async (req, res) => {
   try {
     if (!req.file) {
       return res.status(400).json({
@@ -117,17 +121,32 @@ app.post('/api/files/upload', authenticateMiddleware, upload.single('file'), asy
     // Save file metadata to database (replace with real method as you refactor)
     await databaseService.saveUser(fileMetadata); // Example usage, adjust as needed
 
+
+    // Call Python analysis engine
+    let analysisResult = null;
+    try {
+      const analysisRes = await axios.post('http://localhost:8000/analyze', {
+        file_path: savedPath,
+        analysis_type: 'basic',
+        options: {}
+      });
+      analysisResult = analysisRes.data;
+    } catch (err) {
+      analysisResult = { error: 'Failed to analyze file', details: (err as any)?.message };
+    }
+
     res.json({
       success: true,
       message: 'File uploaded successfully',
-      file: {
+      data: {
         name: req.file.originalname,
         size: req.file.size,
         type: req.file.mimetype,
         hash: fileHash,
         uploadedAt: new Date().toISOString(),
         status: 'completed',
-        databaseSaved: true
+        databaseSaved: true,
+        analysis: analysisResult
       }
     });
 
