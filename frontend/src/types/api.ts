@@ -1,12 +1,13 @@
 // Types shared for file upload API responses
 
 export interface UploadedFileResponse {
-  id: string;
+  id?: string;
   name: string;
   size: number;
   type: string;
   uploadedAt: string;
   status: 'uploading' | 'completed' | 'error';
+  analysis?: any;
 }
 
 export interface ApiResponse<T = any> {
