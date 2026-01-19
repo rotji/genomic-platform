@@ -5,7 +5,7 @@ echo.
 start "API Server" cmd /k "cd /d C:\Users\PC\Desktop\genomic-platform\backend\api-server && npm run dev"
 timeout /t 3 /nobreak > nul
 
-start "Analysis Engine" cmd /k "cd /d C:\Users\PC\Desktop\genomic-platform\backend\analysis-engine && C:\Users\PC\AppData\Local\Programs\Python\Python313\python.exe src\main.py"
+start "Analysis Engine" cmd /k "cd /d C:\Users\PC\Desktop\genomic-platform\backend\analysis-engine && python src\main.py"
 timeout /t 3 /nobreak > nul
 
 start "Oracle Service" cmd /k "cd /d C:\Users\PC\Desktop\genomic-platform\backend\oracle-service && npm run dev"
