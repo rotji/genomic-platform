@@ -25,10 +25,10 @@ npm run dev
 ```bash
 cd analysis-engine
 # Install dependencies
-C:\Users\PC\AppData\Local\Programs\Python\Python313\python.exe -m pip install -r requirements.txt
+python -m pip install -r requirements.txt
 
 # Start FastAPI server
-C:\Users\PC\AppData\Local\Programs\Python\Python313\python.exe src/main.py
+python src/main.py
 # Server runs on http://localhost:8000
 
 # Note: Using full Python path due to Windows alias issue
@@ -68,7 +68,7 @@ npm run dev
 ### ⚠️ Known Issues
 
 **Windows Python Alias Issue**: Windows 10/11 may redirect `python` commands to Microsoft Store. If you encounter this:
-- Use full Python path: `C:\Users\PC\AppData\Local\Programs\Python\Python313\python.exe`
+- Use: `python` (with venv activated)
 - Or disable Python app execution aliases in Windows Settings > Apps > App execution aliases
 
 ### Environment Configuration
