@@ -1,4 +1,4 @@
-import { IApiService } from './IApiService';
+import type { IApiService } from './IApiService';
 
 export class HttpApiService implements IApiService {
   private baseUrl: string;
