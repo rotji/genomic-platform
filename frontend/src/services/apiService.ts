@@ -1,4 +1,4 @@
-import { IApiService } from './IApiService';
+import type { IApiService } from './IApiService';
 import { HttpApiService } from './HttpApiService';
 
 // Singleton instance for production use
