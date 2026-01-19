@@ -21,7 +21,7 @@ $currentPath = [Environment]::GetEnvironmentVariable("Path", "Machine")
 $pathsToAdd = @()
 
 # Add Python path
-$pythonPath = "C:\Users\PC\AppData\Local\Programs\Python\Python313"
+$pythonPath = "C:\Users\PC\AppData\Local\Programs\Python\Python312"
 if (Test-Path $pythonPath) {
     if ($currentPath -notlike "*$pythonPath*") {
         $pathsToAdd += $pythonPath
@@ -29,7 +29,7 @@ if (Test-Path $pythonPath) {
     }
 }
 
-$pythonScriptsPath = "C:\Users\PC\AppData\Local\Programs\Python\Python313\Scripts"
+$pythonScriptsPath = "C:\Users\PC\AppData\Local\Programs\Python\Python312\Scripts"
 if (Test-Path $pythonScriptsPath) {
     if ($currentPath -notlike "*$pythonScriptsPath*") {
         $pathsToAdd += $pythonScriptsPath
