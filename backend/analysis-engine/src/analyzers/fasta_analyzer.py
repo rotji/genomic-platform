@@ -5,7 +5,7 @@ Provides basic genomic sequence analysis functionality
 from typing import Dict, List, Any
 from Bio import SeqIO
 from Bio.Seq import Seq
-from Bio.SeqUtils import GC
+from Bio.SeqUtils import gc_fraction
 import io
 
 class FastaAnalyzer:
@@ -44,13 +44,13 @@ class FastaAnalyzer:
                     "id": record.id,
                     "description": record.description,
                     "length": len(record.seq),
-                    "gc_content": round(GC(record.seq), 2),
+                    "gc_content": round(gc_fraction(record.seq) * 100, 2),
                     "composition": self._get_nucleotide_composition(record.seq)
                 }
                 
                 results["sequences"].append(seq_info)
                 total_length += len(record.seq)
-                gc_contents.append(GC(record.seq))
+                gc_contents.append(gc_fraction(record.seq) * 100)
             
             # Overall statistics
             results["statistics"] = {
