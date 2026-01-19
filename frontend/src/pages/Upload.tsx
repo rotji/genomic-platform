@@ -1,3 +1,4 @@
+import AnalysisSummary from '../components/AnalysisSummary';
 import React, { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Upload as UploadIcon, FileText, Info, X, CheckCircle, AlertCircle, Clock } from 'lucide-react';
@@ -135,9 +136,19 @@ const Upload: React.FC = () => {
                       <div className={styles.fileDetails}>
                         <span className={styles.fileSize}>{formatFileSize(file.size)}</span>
                         {file.status === 'completed' && file.uploadedData && (
-                          <span className={styles.fileFormat}>
-                            {file.type} • Uploaded at {new Date(file.uploadedData.uploadedAt).toLocaleTimeString()}
-                          </span>
+                          <>
+                            <span className={styles.fileFormat}>
+                              {file.type} • Uploaded at {new Date(file.uploadedData.uploadedAt).toLocaleTimeString()}
+                            </span>
+                            {file.uploadedData.analysis && (
+                              <div className={styles.analysisResult}>
+                                <strong>DNA Analysis Result:</strong>
+                                <AnalysisSummary analysis={file.uploadedData.analysis.analysis} />
+                              </div>
+                            )}
+
+
+                          </>
                         )}
                         {file.status === 'error' && file.error && (
                           <span className={styles.fileError}>
