@@ -6,16 +6,25 @@ import os
 from datetime import datetime
 from typing import Dict, Any
 
+
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import uvicorn
 from dotenv import load_dotenv
+# Import analyzers
+from analyzers.fasta_analyzer import FastaAnalyzer
+from analyzers.fastq_analyzer import FastqAnalyzer
+
 
 # Load environment variables
+print("[LOG] Loading environment variables from .env...")
 load_dotenv()
+print(f"[LOG] Environment variable PORT: {os.getenv('PORT')}")
+
 
 # Initialize FastAPI app
+print("[LOG] Creating FastAPI app instance...")
 app = FastAPI(
     title="Genomic Analysis Engine",
     description="FastAPI microservice for genomic data analysis with oracle integration",
@@ -23,6 +32,7 @@ app = FastAPI(
     docs_url="/docs",
     redoc_url="/redoc"
 )
+print("[LOG] FastAPI app created.")
 
 # Add CORS middleware
 app.add_middleware(
@@ -76,21 +86,30 @@ async def api_info():
         "analysis_types": ["basic", "mutation_detection", "gc_content"]
     }
 
-# Basic analysis endpoint (placeholder)
+
+# Real analysis endpoint
 @app.post("/analyze")
 async def analyze_genomic_data(request: AnalysisRequest):
     """
     Analyze genomic data from uploaded files.
-    This is a placeholder that will be expanded with actual analysis logic.
     """
     try:
-        # Placeholder response
+        file_path = request.file_path
+        # Determine file type by extension
+        ext = os.path.splitext(file_path)[1].lower()
+        if ext in [".fasta", ".fa", ".fas"]:
+            analyzer = FastaAnalyzer()
+            result = analyzer.analyze_file(file_path)
+        elif ext in [".fastq", ".fq"]:
+            analyzer = FastqAnalyzer()
+            result = analyzer.analyze_file(file_path)
+        else:
+            return {"error": f"Unsupported file extension: {ext}"}
         return {
-            "status": "success",
-            "message": f"Analysis request received for {request.file_path}",
+            "status": "success" if "error" not in result else "error",
             "analysis_type": request.analysis_type,
             "timestamp": datetime.now().isoformat(),
-            "note": "This is a placeholder. Actual genomic analysis will be implemented here."
+            "analysis": result
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Analysis failed: {str(e)}")
@@ -110,7 +129,10 @@ async def oracle_status():
     }
 
 if __name__ == "__main__":
+    print("[LOG] __main__ block entered.")
     port = int(os.getenv("PORT", 8000))
+    print(f"[LOG] Starting uvicorn on port {port}...")
+    print(f"[LOG] Python executable: {os.sys.executable}")
     uvicorn.run(
         "main:app",
         host="0.0.0.0",
