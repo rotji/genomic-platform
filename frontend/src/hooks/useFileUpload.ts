@@ -53,6 +53,7 @@ export const useFileUpload = (api: IApiService = apiService): UseFileUploadRetur
     try {
       // Start upload with progress tracking
       const result = await api.uploadFile(file);
+      console.log('[UPLOAD DEBUG] uploadFile result:', JSON.stringify(result, null, 2));
       // If you want progress tracking, extend IApiService and HttpApiService accordingly
 
       if (result.success && result.data) {
